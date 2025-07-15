@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 import connectDb from "./config/database.js";
 import User from "./models/user.js";
+import { validateRegisterData } from "./utils/validation.js";
+import bcrypt from "bcrypt";
+import validator from "validator";
 
 const app = express();
 
@@ -79,26 +82,47 @@ app.get("/feed", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    if (!validator.isEmail(email)) throw new Error("Enter valid email!");
+
+    const user = await User.findOne({ email: email });
+
+    if (!user) throw new Error("Invalid credentials!");
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+
+    if (!isValidPassword) throw new Error("Invalid credentials!");
+
+    res.send("Login successfull! " + user);
+  } catch (error) {
+    res.status(400).send("Error: " + error?.message);
+  }
+});
 app.post("/register", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
   try {
-    if (!firstName || !email || !password) {
-      throw new Error("First name, email and password fields are required!");
-    }
+    // validate the input data
+    validateRegisterData(req.body);
+
+    // create a hash of the password
+    const hash = await bcrypt.hash(password, 10);
 
     const userData = {
       firstName,
       lastName,
       email,
-      password,
+      password: hash,
     };
 
     const user = new User(userData);
     await user.save();
     res.send("User created successfully!");
   } catch (err) {
-    res.status(400).send("Error creating user: " + err);
+    res.status(400).send("Error: " + err.message);
   }
 });
 
