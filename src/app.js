@@ -28,12 +28,31 @@ app.patch("/user", async (req, res) => {
   if (!userId) res.status(400).send("User Id is required!");
 
   try {
-    const user = await User.findByIdAndUpdate(userId, data);
+    const ALLOWED_UPDATES = [
+      "userId",
+      "firstName",
+      "lastName",
+      "age",
+      "gender",
+      "skills",
+      "imageUrl",
+    ];
+
+    const isUpdateAllowed = Object.keys(data).every((key) =>
+      ALLOWED_UPDATES.includes(key)
+    );
+
+    if (!isUpdateAllowed) throw new Error("These fields can not be updated!");
+
+    const user = await User.findByIdAndUpdate(userId, data, {
+      runValidators: true,
+    });
+
     if (!user) res.status(404).send("User not found!");
 
     res.send("User updated successfully!");
   } catch (error) {
-    res.status(400).send("Something went wrong!");
+    res.status(400).send("Something went wrong! " + error);
   }
 });
 
@@ -47,7 +66,7 @@ app.get("/profile", async (req, res) => {
     if (!user) res.status(404).send("User not found!");
     res.send(user);
   } catch (error) {
-    res.status(400).send("Something went wrong!");
+    res.status(400).send("Something went wrong! ");
   }
 });
 
@@ -61,28 +80,25 @@ app.get("/feed", async (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const { firstName, lastName, email, password, age, gender } = req.body;
-
-  if (!firstName || !lastName || !email || !password || !age || !gender) {
-    return res.status(400).send("All fields are required!");
-  }
-
-  const userData = {
-    firstName,
-    lastName,
-    email,
-    password,
-    age,
-    gender,
-  };
-
-  const user = new User(userData);
+  const { firstName, lastName, email, password } = req.body;
 
   try {
+    if (!firstName || !email || !password) {
+      throw new Error("First name, email and password fields are required!");
+    }
+
+    const userData = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+
+    const user = new User(userData);
     await user.save();
     res.send("User created successfully!");
   } catch (err) {
-    res.status(400).send("Error creating user: ", err?.message);
+    res.status(400).send("Error creating user: " + err);
   }
 });
 
