@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -76,6 +78,35 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+userSchema.methods.getJWT = async function () {
+  try {
+    const user = this;
+
+    const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    if (!token) throw new Error("Token not found!");
+
+    return token;
+  } catch (error) {
+    throw new Error("ERROR: " + error.message);
+  }
+};
+
+userSchema.methods.comparePasswords = async function (password) {
+  try {
+    const user = this;
+
+    const isPasswordValid = await bcrypt.compare(password, user?.password);
+
+    if (!isPasswordValid) throw new Error("Invalid credentials!");
+
+    return isPasswordValid;
+  } catch (error) {
+    throw new Error("ERROR: " + error.message);
+  }
+};
 const User = mongoose.model("User", userSchema);
 
 export default User;

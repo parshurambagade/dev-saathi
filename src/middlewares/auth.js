@@ -1,0 +1,26 @@
+import jwt from "jsonwebtoken";
+import User from "../models/user.js";
+
+const checkAuth = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+
+    if (!token) throw new Error("Invalid token!");
+
+    const decodedData = await jwt.verify(token, process.env.JWT_SECRET);
+
+    const { _id } = decodedData;
+
+    if (!_id) throw new Error("Invalid token!");
+
+    const user = await User.findById(_id);
+
+    req.user = user;
+
+    next();
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+};
+
+export default checkAuth;

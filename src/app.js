@@ -5,80 +5,34 @@ import User from "./models/user.js";
 import { validateRegisterData } from "./utils/validation.js";
 import bcrypt from "bcrypt";
 import validator from "validator";
+import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
+import checkAuth from "./middlewares/auth.js";
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
-app.delete("/user", async (req, res) => {
-  const userId = req.body?.userId;
-
-  if (!userId) res.status(400).send("User Id is required!");
-
+app.get("/profile", checkAuth, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(userId);
-    if (!user) res.status(404).send("User not found!");
-
-    res.send("User deleted successfully!");
-  } catch (error) {
-    res.status(400).send("Something went wrong!");
-  }
-});
-
-app.patch("/user", async (req, res) => {
-  const userId = req.body?.userId;
-  const data = req.body;
-  if (!userId) res.status(400).send("User Id is required!");
-
-  try {
-    const ALLOWED_UPDATES = [
-      "userId",
-      "firstName",
-      "lastName",
-      "age",
-      "gender",
-      "skills",
-      "imageUrl",
-    ];
-
-    const isUpdateAllowed = Object.keys(data).every((key) =>
-      ALLOWED_UPDATES.includes(key)
-    );
-
-    if (!isUpdateAllowed) throw new Error("These fields can not be updated!");
-
-    const user = await User.findByIdAndUpdate(userId, data, {
-      runValidators: true,
-    });
-
-    if (!user) res.status(404).send("User not found!");
-
-    res.send("User updated successfully!");
-  } catch (error) {
-    res.status(400).send("Something went wrong! " + error);
-  }
-});
-
-app.get("/profile", async (req, res) => {
-  const email = req.body?.email;
-
-  if (!email) res.status(400).send("Email is required!");
-
-  try {
-    const user = await User.findOne({ email });
-    if (!user) res.status(404).send("User not found!");
+    const user = req?.user;
+    if (!user) throw new Error("User not authenticated!");
     res.send(user);
   } catch (error) {
-    res.status(400).send("Something went wrong! ");
+    res.status(400).send("ERROR: " + error.message);
   }
 });
 
-app.get("/feed", async (req, res) => {
+app.post("/sendRequest", checkAuth, async (req, res) => {
   try {
-    const users = await User.find();
-    res.send(users);
+    const user = req?.user;
+
+    if (!user) throw new Error("User not authenticated!");
+
+    res.send("Request is sent by " + user?.firstName);
   } catch (error) {
-    res.status(400).send("Something went wrong!");
+    res.status(400).send("Error: " + error?.message);
   }
 });
 
@@ -92,15 +46,20 @@ app.post("/login", async (req, res) => {
 
     if (!user) throw new Error("Invalid credentials!");
 
-    const isValidPassword = await bcrypt.compare(password, user.password);
+    await user?.comparePasswords(password);
 
-    if (!isValidPassword) throw new Error("Invalid credentials!");
+    const token = await user?.getJWT();
 
-    res.send("Login successfull! " + user);
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 7 * 360000000),
+    });
+
+    res.send("Login successfull!");
   } catch (error) {
     res.status(400).send("Error: " + error?.message);
   }
 });
+
 app.post("/register", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
