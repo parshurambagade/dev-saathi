@@ -5,14 +5,22 @@ import User from "./models/user.js";
 
 const app = express();
 
+app.use(express.json());
+
 app.post("/register", async (req, res) => {
+  const { firstName, lastName, email, password, age, gender } = req.body;
+
+  if (!firstName || !lastName || !email || !password || !age || !gender) {
+    return res.status(400).send("All fields are required!");
+  }
+
   const userData = {
-    firstName: "Parshuram",
-    lastName: "Bagade",
-    email: "parshu@bagade.com",
-    password: "parsh123",
-    age: 24,
-    gender: "male",
+    firstName,
+    lastName,
+    email,
+    password,
+    age,
+    gender,
   };
 
   const user = new User(userData);
