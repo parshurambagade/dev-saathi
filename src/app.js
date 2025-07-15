@@ -7,15 +7,31 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/userById", async (req, res) => {
+app.delete("/user", async (req, res) => {
   const userId = req.body?.userId;
 
   if (!userId) res.status(400).send("User Id is required!");
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findByIdAndDelete(userId);
     if (!user) res.status(404).send("User not found!");
-    res.send(user);
+
+    res.send("User deleted successfully!");
+  } catch (error) {
+    res.status(400).send("Something went wrong!");
+  }
+});
+
+app.patch("/user", async (req, res) => {
+  const userId = req.body?.userId;
+  const data = req.body;
+  if (!userId) res.status(400).send("User Id is required!");
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, data);
+    if (!user) res.status(404).send("User not found!");
+
+    res.send("User updated successfully!");
   } catch (error) {
     res.status(400).send("Something went wrong!");
   }
