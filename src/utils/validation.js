@@ -43,7 +43,7 @@ export const validateChangePasswordData = async (req) => {
   }
 };
 
-export const validateSendConnectionRequestData = async (req) => {
+export const validateSendrequestData = async (req) => {
   const { receiverId, status } = req.params;
 
   if (!receiverId || !status) {
@@ -58,4 +58,14 @@ export const validateSendConnectionRequestData = async (req) => {
   const receiver = await User.findById(receiverId);
 
   if (!receiver) throw new Error("Invalid receiver ID!");
+};
+
+export const validateViewRequestData = (req) => {
+  const { status, requestId } = req.params;
+
+  if (!status || !requestId) throw new Error("Missing status or requestId");
+
+  const ALLOWED_STATUS = ["accepted", "rejected"];
+  if (!ALLOWED_STATUS.includes(status))
+    throw new Error("Invalid request status!");
 };

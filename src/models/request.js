@@ -1,10 +1,11 @@
 import mongoose, { Mongoose } from "mongoose";
 
-const connectionRequestSchema = new mongoose.Schema(
+const requestSchema = new mongoose.Schema(
   {
     senderId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "User",
     },
     receiverId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -23,9 +24,9 @@ const connectionRequestSchema = new mongoose.Schema(
   }
 );
 
-connectionRequestSchema.index({ senderId: 1, receiverId: 1 });
+requestSchema.index({ senderId: 1, receiverId: 1 });
 
-connectionRequestSchema.pre("save", async function (next) {
+requestSchema.pre("save", async function (next) {
   const request = this;
 
   if (request.senderId.toString() === request.receiverId.toString())
@@ -34,9 +35,6 @@ connectionRequestSchema.pre("save", async function (next) {
   next();
 });
 
-const ConnectionRequest = mongoose.model(
-  "ConnectionRequest",
-  connectionRequestSchema
-);
+const Request = mongoose.model("Request", requestSchema);
 
-export default ConnectionRequest;
+export default Request;
