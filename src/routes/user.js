@@ -2,6 +2,7 @@ import express from "express";
 import checkAuth from "../middlewares/auth.js";
 import Request from "../models/request.js";
 import { USER_SAFE_DATA } from "../constants.js";
+import User from "../models/user.js";
 
 const userRouter = express.Router();
 
@@ -65,4 +66,46 @@ userRouter.get("/user/connections", checkAuth, async (req, res) => {
     res.status(400).json({ message: "ERROR: " + error?.message });
   }
 });
+
+userRouter.get("/user/feed", checkAuth, async (req, res) => {
+  try {
+    const user = req.user;
+
+    if (!user)
+      return res
+        .status(400)
+        .json({ message: "User not found, please log in again!" });
+
+    const connectionRequests = await Request.find({
+      $or: [{ sender: req.user?._id }, { receiver: req.user?._id }],
+    });
+
+    if (!connectionRequests)
+      return res.status(400).json({ message: "No connection requests found!" });
+
+    const hiddenUsersFromFeed = new Set();
+
+    connectionRequests.forEach((req) => {
+      hiddenUsersFromFeed.add(req.sender.toString());
+      hiddenUsersFromFeed.add(req.receiver.toString());
+    });
+
+    const feedData = await User.find({
+      $and: [
+        { _id: { $nin: Array.from(hiddenUsersFromFeed) } },
+        { _id: { $ne: user?._id } },
+      ],
+    }).select(USER_SAFE_DATA);
+
+    if (!feedData)
+      return res.status(400).json({ message: "Error fetching feed users!" });
+
+    res
+      .status(200)
+      .json({ message: "Feed fetched successfully!", data: feedData });
+  } catch (error) {
+    res.status(400).json({ message: "ERROR: " + error?.message });
+  }
+});
+
 export default userRouter;
