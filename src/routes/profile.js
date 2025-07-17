@@ -5,8 +5,25 @@ import {
   validateProfileEditData,
 } from "../utils/validation.js";
 import bcrypt from "bcrypt";
-
+import User from "../models/user.js";
 const profileRouter = express.Router();
+
+// TODO: remove this api , its just for testing purpose
+profileRouter.get("/profiles/all", async (req, res) => {
+  try {
+    const allProfiles = await User.find({});
+
+    if (!allProfiles.length)
+      return res.status(404).json({ message: "No profiles found!" });
+
+    return res.status(200).json({
+      message: "Fetched all profiles successfully!",
+      data: allProfiles,
+    });
+  } catch (error) {
+    return res.status(400).json({ message: "ERROR: " + error?.message });
+  }
+});
 
 profileRouter.get("/profile", checkAuth, async (req, res) => {
   try {
