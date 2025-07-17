@@ -10,3 +10,13 @@ export const ALLOWED_EDIT_FIELDS = [
   "about",
   "imageUrl",
 ];
+
+export const USER_SAFE_DATA = [
+  "firstName",
+  "lastName",
+  "imageUrl",
+  "age",
+  "gender",
+  "about",
+  "skills",
+];

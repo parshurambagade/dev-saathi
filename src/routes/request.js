@@ -5,6 +5,7 @@ import {
   validateViewRequestData,
 } from "../utils/validation.js";
 import Request from "../models/request.js";
+import { USER_SAFE_DATA } from "../constants.js";
 const requestRouter = express.Router();
 
 requestRouter.post(
@@ -20,8 +21,8 @@ requestRouter.post(
 
       const exhistingRequest = await Request.findOne({
         $or: [
-          { senderId, receiverId },
-          { senderId: receiverId, receiverId: senderId },
+          { sender: senderId, receiver: receiverId },
+          { sender: receiverId, receiver: senderId },
         ],
       });
 
@@ -29,8 +30,8 @@ requestRouter.post(
         return res.status(400).json({ message: "Request already present!" });
 
       const requestData = {
-        senderId,
-        receiverId,
+        sender: senderId,
+        receiver: receiverId,
         status,
       };
 
@@ -57,7 +58,7 @@ requestRouter.post(
 
       const request = await Request.findOne({
         _id: requestId,
-        receiverId: user._id,
+        receiver: user._id,
         status: "interested",
       });
 
@@ -84,7 +85,9 @@ requestRouter.post(
 // TODO: remove this api , its just for testing purpose
 requestRouter.get("/request/all", async (req, res) => {
   try {
-    const allRequests = await Request.find();
+    const allRequests = await Request.find()
+      .populate("sender", USER_SAFE_DATA)
+      .populate("receiver", USER_SAFE_DATA);
 
     if (!allRequests.length)
       return res.status(404).json({ message: "No requests found!" });
@@ -94,7 +97,7 @@ requestRouter.get("/request/all", async (req, res) => {
       data: allRequests,
     });
   } catch (error) {
-    res.status(400).json({ message: "Error fetching all requests!" });
+    res.status(400).json({ message: "ERROR: " + error?.message });
   }
 });
 

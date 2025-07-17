@@ -2,14 +2,15 @@ import mongoose, { Mongoose } from "mongoose";
 
 const requestSchema = new mongoose.Schema(
   {
-    senderId: {
+    sender: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
-    receiverId: {
+    receiver: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "User",
     },
     status: {
       type: String,
@@ -24,12 +25,12 @@ const requestSchema = new mongoose.Schema(
   }
 );
 
-requestSchema.index({ senderId: 1, receiverId: 1 });
+requestSchema.index({ sender: 1, receiver: 1 });
 
 requestSchema.pre("save", async function (next) {
   const request = this;
 
-  if (request.senderId.toString() === request.receiverId.toString())
+  if (request.sender.toString() === request.receiver.toString())
     throw new Error("You cant send request to yourself!");
 
   next();
