@@ -31,9 +31,9 @@ profileRouter.get("/profile", checkAuth, async (req, res) => {
 
     if (!user) throw new Error("User not found!");
 
-    res.send(user);
+    res.status(200).json({ message: "User fetched successfully!", data: user });
   } catch (error) {
-    res.status(400).send("ERROR: " + error?.message);
+    res.status(400).json({ message: "ERROR: " + error?.message });
   }
 });
 

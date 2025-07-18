@@ -90,12 +90,21 @@ userRouter.get("/user/feed", checkAuth, async (req, res) => {
       hiddenUsersFromFeed.add(req.receiver.toString());
     });
 
+    const page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+    if (limit > 50) limit = 50;
+
+    const skip = (page - 1) * limit;
+
     const feedData = await User.find({
       $and: [
         { _id: { $nin: Array.from(hiddenUsersFromFeed) } },
         { _id: { $ne: user?._id } },
       ],
-    }).select(USER_SAFE_DATA);
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
 
     if (!feedData)
       return res.status(400).json({ message: "Error fetching feed users!" });

@@ -27,9 +27,9 @@ authRouter.post("/login", async (req, res) => {
 
     res
       .cookie("token", token, { expires: new Date(Date.now() + 7 * 360000000) })
-      .send("Login successfull!");
+      .json({ message: "Login successfull!" });
   } catch (error) {
-    res.status(400).send("ERROR: ", error?.message);
+    res.status(400).json({ message: "ERROR: " + error?.message });
   }
 });
 
@@ -52,9 +52,9 @@ authRouter.post("/register", async (req, res) => {
 
     await user.save();
 
-    res.send("Registration successfull!");
+    res.status(201).json({ message: "Registration successfull!" });
   } catch (error) {
-    res.status(400).send("ERROR: ", error?.message);
+    res.status(400).json({ message: "ERROR: " + error?.message });
   }
 });
 
