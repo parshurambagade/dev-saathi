@@ -10,25 +10,27 @@ import cors from "cors";
 
 const app = express();
 
-app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
+app.use(express.json());
+app.use(cookieParser());
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 
+const PORT = process.env.PORT || 7777;
+
 connectDb()
   .then(() => {
     console.log("Database connected successfully!");
-    app.listen(7777, () => {
-      console.log("App is running on the port 7777...");
+    app.listen(PORT, () => {
+      console.log(`App is running on the port ${PORT}...`);
     });
   })
   .catch((err) => console.log("Error: ", err));
