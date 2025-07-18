@@ -1,11 +1,15 @@
+import { setUserInfo } from "@/store/slices/userSlice";
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const useLogin = () => {
   const [email, setEmail] = useState("parshuram@gmail.com");
   const [password, setPassword] = useState("Pass@123");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,9 +33,12 @@ const useLogin = () => {
         }
       );
 
-      if (response.status === 200) {
-        console.log("Login successful:", response.data);
+      if (response.status !== 200) {
+        setError("Login failed. Please check your credentials.");
+        return;
       }
+
+      dispatch(setUserInfo(response?.data?.user));
     } catch (err) {
       console.error("Login error:", err);
       setError("Login failed. Please try again.");
