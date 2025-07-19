@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "@/constants";
 import { setUserInfo } from "@/store/slices/userSlice";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -43,9 +43,18 @@ const useLogin = () => {
 
       dispatch(setUserInfo(response?.data?.user));
       navigate("/");
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Login error:", err);
-      setError("Login failed. Please try again.");
+
+      const axiosError = err as AxiosError;
+      const errorMessage =
+        (axiosError?.response?.data &&
+        typeof axiosError.response.data === "string"
+          ? axiosError.response.data
+          : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (axiosError?.response?.data as any)?.message) ||
+        "Login failed. Please try again.";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

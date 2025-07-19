@@ -19,10 +19,18 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/appStore";
+import useLogout from "@/hooks/useLogout";
 
 const Header = () => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const user = useSelector((store: RootState) => store.user.userInfo);
+
+  const { handleLogout } = useLogout();
+
+  const handleLogoutClick = () => {
+    handleLogout();
+    setIsAlertOpen(false);
+  };
   return (
     <header className="flex items-center justify-between px-4 py-3 bg-white shadow-sm">
       <div className="flex-1">
@@ -71,10 +79,7 @@ const Header = () => {
             </AlertDialogCancel>
             <AlertDialogAction
               className="cursor-pointer bg-red-500 text-white hover:bg-red-600"
-              onClick={() => {
-                console.log("Logging out...");
-                setIsAlertOpen(false);
-              }}
+              onClick={handleLogoutClick}
             >
               Logout
             </AlertDialogAction>
