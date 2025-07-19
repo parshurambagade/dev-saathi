@@ -5,7 +5,8 @@ const checkAuth = async (req, res, next) => {
   try {
     const { token } = req.cookies;
 
-    if (!token) throw new Error("Invalid token!");
+    if (!token)
+      return res.status(401).send("Unauthorized access, please login!");
 
     const decodedData = await jwt.verify(token, process.env.JWT_SECRET);
 
