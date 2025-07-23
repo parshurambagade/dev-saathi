@@ -1,24 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
-export interface Profile {
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  age: number;
-  gender: string;
-  about: string;
-  skills: string[];
-  _id: string;
-}
+import type { UserInfo } from "./userSlice";
 
 interface FeedState {
-  profiles: Profile[];
+  profiles: Partial<UserInfo>[];
   error: string | null;
   loading: boolean;
 }
 
 const initialState: FeedState = {
-  profiles: [] as Profile[],
+  profiles: [] as Partial<UserInfo>[],
   error: null,
   loading: false,
 };
@@ -27,7 +17,7 @@ const feedSlice = createSlice({
   name: "feed",
   initialState,
   reducers: {
-    setProfiles(state, action: PayloadAction<Profile[]>) {
+    setProfiles(state, action: PayloadAction<Partial<UserInfo>[]>) {
       state.profiles = action.payload;
     },
     setError(state, action: PayloadAction<string | null>) {

@@ -1,4 +1,4 @@
-import ProfileCard from "@/components/common/ProfileCard";
+import ProfileCard from "@/components/Profile/ProfileCard";
 import useFeed from "@/hooks/useFeed";
 
 const Feed = () => {

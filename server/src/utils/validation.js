@@ -22,7 +22,35 @@ export const validateProfileEditData = (body) => {
     ALLOWED_EDIT_FIELDS.includes(field)
   );
 
-  if (!isEditAllowed) throw new Error("Invalid edit request!");
+  if (!isEditAllowed)
+    throw new Error(
+      "We can only edit the following fields: " + ALLOWED_EDIT_FIELDS.join(", ")
+    );
+
+  const { firstName, lastName, age, gender, about, skills, imageUrl } = body;
+  console.log("Validating profile edit data:", body);
+  if (firstName && firstName.length < 3)
+    throw new Error("First name must be at least 3 characters long!");
+
+  if (lastName && lastName.length < 3)
+    throw new Error("Last name must be at least 3 characters long!");
+
+  if (age && (age < 15 || age > 100))
+    throw new Error("Age must be between 15 and 100!");
+
+  if (gender && !["male", "female", "other"].includes(gender))
+    throw new Error("Invalid gender value!");
+
+  if (skills && skills.length > 8) {
+    throw new Error("Skills cannot be more than 8");
+  }
+
+  if (about && about.length > 250)
+    throw new Error("About section cannot exceed 250 characters!");
+
+  if (imageUrl && !validator.isURL(imageUrl)) {
+    throw new Error("Image URL is not valid!");
+  }
 };
 
 export const validateChangePasswordData = async (req) => {

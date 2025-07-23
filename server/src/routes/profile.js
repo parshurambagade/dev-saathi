@@ -38,9 +38,9 @@ profileRouter.get("/profile", checkAuth, async (req, res) => {
 });
 
 profileRouter.patch("/profile/edit", checkAuth, async (req, res) => {
-  validateProfileEditData(req.body);
-
   try {
+    validateProfileEditData(req.body);
+
     const user = req?.user;
 
     if (!user) res.status(404).json({ message: "User not found!" });
