@@ -34,9 +34,12 @@ const Header = () => {
   return (
     <header className="flex items-center justify-between px-4 py-3 bg-white shadow-sm">
       <div className="flex-1">
-        <a className="text-xl font-bold text-gray-800 hover:text-gray-600 transition-colors">
+        <Link
+          to="/"
+          className="text-xl font-bold text-gray-800 hover:text-gray-600 transition-colors"
+        >
           devTinder
-        </a>
+        </Link>
       </div>
       {user && (
         <DropdownMenu>
@@ -50,6 +53,16 @@ const Header = () => {
             <DropdownMenuItem>
               <Link to="/profile" className="w-full">
                 Profile
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/connections" className="w-full">
+                Connections
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/requests" className="w-full">
+                Requests
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem

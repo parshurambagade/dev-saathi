@@ -28,7 +28,7 @@ export const validateProfileEditData = (body) => {
     );
 
   const { firstName, lastName, age, gender, about, skills, imageUrl } = body;
-  console.log("Validating profile edit data:", body);
+
   if (firstName && firstName.length < 3)
     throw new Error("First name must be at least 3 characters long!");
 
