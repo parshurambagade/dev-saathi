@@ -12,29 +12,58 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
-import useLogin from "@/hooks/useLogin";
+import useRegistration from "@/hooks/useRegistration";
 import { Link } from "react-router-dom";
 
-export function LoginForm() {
+export function RegistrationForm() {
   const {
     email,
     setEmail,
     password,
     setPassword,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
     error,
     isLoading,
-    handleLogin,
-  } = useLogin();
+    handleRegistration,
+  } = useRegistration();
+
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Login</CardTitle>
+        <CardTitle>Registration</CardTitle>
         <CardDescription>
-          Enter your email and password to access your account.
+          Enter your details to create an account.
         </CardDescription>
       </CardHeader>
-      <form className="space-y-4" onSubmit={handleLogin}>
+      <form className="space-y-4" onSubmit={handleRegistration}>
         <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First Name</Label>
+            <Input
+              id="firstName"
+              name="firstName"
+              type="text"
+              required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
+              id="lastName"
+              name="lastName"
+              type="text"
+              required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Enter your last name"
+            />
+          </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -68,18 +97,18 @@ export function LoginForm() {
         </CardContent>
         <CardFooter>
           <Button className="w-full" type="submit" disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Log in"}
+            {isLoading ? "Registering..." : "Register"}
           </Button>
         </CardFooter>
       </form>
       <div className="text-center pb-4">
         <p className="text-sm text-gray-600">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="font-medium text-blue-600 hover:text-blue-500 underline"
           >
-            Sign up here
+            Sign in here
           </Link>
         </p>
       </div>

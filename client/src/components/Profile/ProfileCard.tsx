@@ -13,8 +13,8 @@ const ProfileCard = ({
   handleIgnoreProfile,
 }: {
   user: Partial<UserInfo>;
-  handleSendRequest: (userId: string) => Promise<void>;
-  handleIgnoreProfile: (requestId: string) => Promise<void>;
+  handleSendRequest?: (userId: string) => Promise<void>;
+  handleIgnoreProfile?: (requestId: string) => Promise<void>;
 }) => {
   if (!user) return;
 
@@ -98,8 +98,11 @@ const ProfileCard = ({
       <CardFooter className="p-6 pt-0 flex gap-3">
         <Button
           variant="outline"
+          disabled={!handleIgnoreProfile}
           className="cursor-pointer flex-1 h-12 rounded-xl border-2 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 hover:shadow-lg transition-all duration-300 font-semibold group"
-          onClick={() => handleIgnoreProfile(user._id || "")}
+          onClick={() =>
+            handleIgnoreProfile && handleIgnoreProfile(user._id || "")
+          }
         >
           <span className="group-hover:scale-110 transition-transform duration-200">
             ✕ Pass
@@ -107,8 +110,9 @@ const ProfileCard = ({
         </Button>
         <Button
           variant="default"
+          disabled={!handleSendRequest}
           className="cursor-pointer flex-1 h-12 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl group"
-          onClick={() => handleSendRequest(user._id || "")}
+          onClick={() => handleSendRequest && handleSendRequest(user._id || "")}
         >
           <span className="group-hover:scale-110 transition-transform duration-200">
             💖 Like

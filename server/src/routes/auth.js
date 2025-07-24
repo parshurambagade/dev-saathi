@@ -39,6 +39,11 @@ authRouter.post("/register", async (req, res) => {
 
     const { firstName, lastName, password, email } = req.body;
 
+    const foundUser = await User.findOne({ email });
+
+    if (foundUser)
+      return res.status(401).send("Account already exists, please login!");
+
     const hash = await bcrypt.hash(password, 10);
 
     if (!hash) throw new Error("Error in password encryption!");
@@ -52,7 +57,14 @@ authRouter.post("/register", async (req, res) => {
 
     await user.save();
 
-    res.status(201).json({ message: "Registration successfull!" });
+    const token = await user.getJWT();
+
+    if (!token) throw new Error("Token not found!");
+
+    res
+      .cookie("token", token, { expires: new Date(Date.now() + 7 * 360000000) })
+      .status(201)
+      .json({ message: "Registration successfull!", data: user });
   } catch (error) {
     res.status(400).send(error?.message || "ERROR: Something went wrong!");
   }

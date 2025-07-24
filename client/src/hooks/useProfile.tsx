@@ -12,6 +12,10 @@ const useProfile = () => {
 
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    setUserInfo(user);
+  }, [user]);
+
   const handleUpdateProfile = async (newUserInfo: UserInfo | null) => {
     try {
       const processedSkills = newUserInfo?.skills
