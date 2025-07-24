@@ -10,10 +10,17 @@ const ConnectionCard = ({ connection }: { connection: UserInfo }) => {
           className="w-full h-auto aspect-square rounded-full"
         />
       </div>
-      <div className="col-span-5">
+      <div className="col-span-5 flex flex-col justify-center">
         <h2 className="text-lg font-semibold">
           {connection.firstName} {connection.lastName}
         </h2>
+        <p className="text-sm text-gray-600 line-clamp-2">
+          {connection.age
+            ? `${connection.age}${
+                connection.gender ? `, ${connection.gender}` : ""
+              }`
+            : null}
+        </p>
         <p className="text-sm text-gray-600 line-clamp-2">{connection.about}</p>
       </div>
     </article>

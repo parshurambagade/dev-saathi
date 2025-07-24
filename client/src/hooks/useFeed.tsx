@@ -29,7 +29,8 @@ const useFeed = () => {
         }
         const data = response.data.data;
         dispatch(setProfiles(data));
-      } catch (err) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
         dispatch(setError(err.message));
         console.error("Error fetching feed:", err);
       } finally {
@@ -40,11 +41,62 @@ const useFeed = () => {
     fetchFeed();
   }, [dispatch, profiles.length]);
 
+  const handleSendRequest = async (userId: string) => {
+    try {
+      if (!userId) {
+        throw new Error("User ID is required to send a request");
+      }
+      const response = await axios.post(
+        API_BASE_URL + "/request/send/interested/" + userId,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error("Failed to send request");
+      }
+
+      dispatch(setProfiles(profiles.filter((p) => p._id !== userId)));
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      dispatch(setError(err.message));
+      console.error("Error sending request:", err);
+    }
+  };
+  const handleIgnoreProfile = async (userId: string) => {
+    try {
+      if (!userId) {
+        throw new Error("User ID is required to ignore a profile");
+      }
+      const response = await axios.post(
+        API_BASE_URL + `/request/send/ignored/${userId}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error("Failed to ignore profile");
+      }
+
+      dispatch(setProfiles(profiles.filter((p) => p._id !== userId)));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      dispatch(setError(err.message));
+      console.error("Error ignoring profile:", err);
+    }
+  };
   return {
     profiles,
     error,
     setError,
     loading,
+    handleSendRequest,
+    handleIgnoreProfile,
   };
 };
 

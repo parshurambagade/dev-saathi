@@ -11,7 +11,8 @@ const RequestCard = ({
   onAccept: (id: string) => void;
   onReject: (id: string) => void;
 }) => {
-  const { imageUrl, firstName, lastName, about } = request.sender as UserInfo;
+  const { imageUrl, firstName, lastName, about, age, gender } =
+    request.sender as UserInfo;
 
   return (
     <article className="grid max-w-xl grid-cols-7 gap-4 p-4 border border-gray-200 rounded-lg bg-white">
@@ -26,6 +27,9 @@ const RequestCard = ({
         <h2 className="text-lg font-semibold">
           {firstName} {lastName}
         </h2>
+        <p className="text-sm text-gray-600 line-clamp-2">
+          {age ? `${age}${gender ? `, ${gender}` : ""}` : null}
+        </p>
         <p className="text-sm text-gray-600 line-clamp-2">{about}</p>
       </div>
       <div className="col-span-3 flex items-center gap-3">

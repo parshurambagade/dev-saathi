@@ -7,7 +7,15 @@ import {
 import { Button } from "../ui/button";
 import type { UserInfo } from "@/store/slices/userSlice";
 
-const ProfileCard = ({ user }: { user: Partial<UserInfo> }) => {
+const ProfileCard = ({
+  user,
+  handleSendRequest,
+  handleIgnoreProfile,
+}: {
+  user: Partial<UserInfo>;
+  handleSendRequest: (userId: string) => Promise<void>;
+  handleIgnoreProfile: (requestId: string) => Promise<void>;
+}) => {
   if (!user) return;
 
   const { firstName, lastName, age, gender, about, skills, imageUrl } = user;
@@ -53,7 +61,7 @@ const ProfileCard = ({ user }: { user: Partial<UserInfo> }) => {
               <div className="w-1 h-4 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
               About
             </h4>
-            <p className="text-gray-700 leading-relaxed text-sm line-clamp-3">
+            <p className="text-gray-700 leading-relaxed text-sm line-clamp-2">
               {about}
             </p>
           </div>
@@ -90,7 +98,8 @@ const ProfileCard = ({ user }: { user: Partial<UserInfo> }) => {
       <CardFooter className="p-6 pt-0 flex gap-3">
         <Button
           variant="outline"
-          className="flex-1 h-12 rounded-xl border-2 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 hover:shadow-lg transition-all duration-300 font-semibold group"
+          className="cursor-pointer flex-1 h-12 rounded-xl border-2 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 hover:shadow-lg transition-all duration-300 font-semibold group"
+          onClick={() => handleIgnoreProfile(user._id || "")}
         >
           <span className="group-hover:scale-110 transition-transform duration-200">
             ✕ Pass
@@ -98,7 +107,8 @@ const ProfileCard = ({ user }: { user: Partial<UserInfo> }) => {
         </Button>
         <Button
           variant="default"
-          className="flex-1 h-12 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl group"
+          className="cursor-pointer flex-1 h-12 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl group"
+          onClick={() => handleSendRequest(user._id || "")}
         >
           <span className="group-hover:scale-110 transition-transform duration-200">
             💖 Like
