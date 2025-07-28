@@ -76,6 +76,19 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    primiumExpiry: {
+      type: Date,
+      default: null,
+      validate(val) {
+        if (val && !validator.isDate(val.toString())) {
+          throw new Error("Invalid date format for premium expiry!");
+        }
+      },
+    },
   },
   {
     timestamps: true,

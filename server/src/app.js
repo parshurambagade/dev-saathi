@@ -7,6 +7,7 @@ import profileRouter from "./routes/profile.js";
 import requestRouter from "./routes/request.js";
 import userRouter from "./routes/user.js";
 import cors from "cors";
+import paymentRouter from "./routes/payment.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
+app.use("/", paymentRouter);
 
 const PORT = process.env.PORT || 7777;
 
