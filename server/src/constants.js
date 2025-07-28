@@ -20,3 +20,14 @@ export const USER_SAFE_DATA = [
   "about",
   "skills",
 ];
+
+export const MEMBERSHIP_TYPES = {
+  free: {
+    price: 0,
+    description: "Free membership with limited features",
+  },
+  premium: {
+    price: 999, // Price in INR
+    description: "Premium membership with all features",
+  },
+};
