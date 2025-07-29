@@ -18,7 +18,7 @@ app.use(
   })
 );
 
-// Apply webhook raw body parser BEFORE express.json()
+// Add webhook route BEFORE express.json() to handle raw body
 app.use('/payment/webhook', express.raw({ type: 'application/json' }));
 
 app.use(express.json());

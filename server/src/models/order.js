@@ -20,9 +20,13 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    razorpayPaymentId: {
+      type: String,
+      default: null,
+    },
     status: {
       type: String,
-      enum: ["created", "paid", "failed"],
+      enum: ["created", "paid", "failed", "captured"],
       default: "created",
     },
     membershipType: {

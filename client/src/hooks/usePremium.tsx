@@ -100,16 +100,15 @@ const usePremium = () => {
         throw new Error("Invalid response from server");
       }
       const { order, razorpayKeyId } = response.data.data;
-      console.log("Order created successfully:", order);
 
-      const { amount, currency, orderId, notes } = order;
+      const { amount, currency, razorpayOrderId, notes } = order;
       const options = {
         key: razorpayKeyId,
         amount: amount,
         currency: currency,
         name: "DevSaathi",
         description: "Test Transaction",
-        order_id: orderId,
+        order_id: razorpayOrderId, // Use razorpayOrderId instead of orderId
         prefill: {
           name: notes?.firstName + " " + notes?.lastName,
           email: notes?.email,
@@ -118,7 +117,38 @@ const usePremium = () => {
         theme: {
           color: "#F37254",
         },
-        handler: handleVerifyPremium,
+        handler: async function (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) {
+          try {
+            // Capture the payment
+            const captureResponse = await axios.post(
+              API_BASE_URL + "/payment/capture",
+              {
+                paymentId: response.razorpay_payment_id,
+                amount: amount, // Amount in paise
+                orderId: response.razorpay_order_id, // Pass the order ID
+              },
+              {
+                withCredentials: true,
+              }
+            );
+
+            if (captureResponse.status === 200) {
+              alert("Payment successful! Premium activated.");
+              handleVerifyPremium(); // Refresh premium status
+            } else {
+              throw new Error("Failed to capture payment");
+            }
+          } catch (error) {
+            console.error("Error capturing payment:", error);
+            alert(
+              "Payment completed but there was an issue. Please contact support."
+            );
+          }
+        },
       };
 
       // @ts-expect-error Razorpay global object

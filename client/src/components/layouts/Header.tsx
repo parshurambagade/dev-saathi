@@ -56,6 +56,11 @@ const Header = () => {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
+              <Link to="/premium" className="w-full">
+                Premium
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
               <Link to="/connections" className="w-full">
                 Connections
               </Link>

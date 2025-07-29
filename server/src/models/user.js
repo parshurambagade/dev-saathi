@@ -84,7 +84,7 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
       validate(val) {
-        if (val && !validator.isDate(val.toString())) {
+        if (val !== null && !(val instanceof Date)) {
           throw new Error("Invalid date format for premium expiry!");
         }
       },
