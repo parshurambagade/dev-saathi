@@ -66,32 +66,50 @@ paymentRouter.post("/payment/create-order", checkAuth, async (req, res) => {
   }
 });
 
-// Add raw body parser middleware for webhook
-paymentRouter.use(
-  "/payment/webhook",
-  express.raw({ type: "application/json" })
-);
-
 paymentRouter.post("/payment/webhook", async (req, res) => {
   try {
     console.log("=== WEBHOOK RECEIVED ===");
     console.log("Headers:", req.headers);
     console.log("Raw body:", req.body);
+    console.log("Body type:", typeof req.body);
+    console.log("Body is Buffer:", Buffer.isBuffer(req.body));
+
+    // Handle test requests
+    if (req.body && typeof req.body === "object" && req.body.test) {
+      console.log("Test webhook request received");
+      return res.status(200).json({ message: "Test webhook working" });
+    }
 
     // Convert raw body to string for signature validation
-    const webhookBody = req.body.toString();
+    const webhookBody = Buffer.isBuffer(req.body)
+      ? req.body.toString()
+      : JSON.stringify(req.body);
     console.log("Webhook body as string:", webhookBody);
 
-    // Check if signature header exists
-    const receivedSignature = req.headers["x-razorpay-signature"];
+    // Check if signature header exists (note: case-insensitive check)
+    const receivedSignature =
+      req.headers["x-razorpay-signature"] ||
+      req.headers["X-Razorpay-Signature"];
     if (!receivedSignature) {
       console.log("Missing signature header");
+      console.log("Available headers:", Object.keys(req.headers));
       return res.status(400).json({
         message: "Missing signature header",
       });
     }
 
+    console.log("Signature found:", receivedSignature);
+
+    // Check if webhook secret exists
+    if (!process.env.WEBHOOK_SECRET) {
+      console.log("WEBHOOK_SECRET not configured");
+      return res.status(500).json({
+        message: "Webhook secret not configured",
+      });
+    }
+
     // Validate webhook signature
+    console.log("Validating webhook signature...");
     const isWebhookValid = validateWebhookSignature(
       webhookBody,
       receivedSignature,
@@ -105,9 +123,12 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
       });
     }
 
+    console.log("Webhook signature validated successfully");
+
     // Parse webhook data
     const webhookData = JSON.parse(webhookBody);
     console.log("Webhook event:", webhookData.event);
+    console.log("Full webhook data:", JSON.stringify(webhookData, null, 2));
 
     // Only process payment.captured events
     if (webhookData.event !== "payment.captured") {

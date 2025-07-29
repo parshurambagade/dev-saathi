@@ -17,6 +17,10 @@ app.use(
     credentials: true,
   })
 );
+
+// Apply webhook raw body parser BEFORE express.json()
+app.use('/payment/webhook', express.raw({ type: 'application/json' }));
+
 app.use(express.json());
 app.use(cookieParser());
 
