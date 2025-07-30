@@ -1,5 +1,9 @@
+import createSocketConnection from "@/socket/socket";
+import type { RootState } from "@/store/appStore";
 import { Ship } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 interface Message {
   id: string;
@@ -45,7 +49,9 @@ const useChat = () => {
       timestamp: new Date(Date.now() - 60000),
     },
   ]);
-
+  const { targetUserId } = useParams();
+  const { userInfo } = useSelector((store: RootState) => store.user);
+  const userId = userInfo?._id;
   const handleSend = () => {
     if (!input.trim()) return;
 
@@ -76,6 +82,16 @@ const useChat = () => {
     // This would be dynamic based on selected transport type
     return <Ship className="w-4 h-4 text-white" />;
   };
+
+  useEffect(() => {
+    const socket = createSocketConnection();
+
+    socket.emit("joinChat", { userId, targetUserId });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [targetUserId, userId]);
 
   return { input, setInput, messages, handleSend, getTransportIcon };
 };
