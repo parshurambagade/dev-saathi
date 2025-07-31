@@ -6,7 +6,10 @@ import ChatBubble from "@/components/chat/ChatBubble";
 import useChat from "@/hooks/useChat";
 
 export default function Chat() {
-  const { input, setInput, messages, handleSend, getTransportIcon } = useChat();
+  const { input, setInput, messages, handleSend, getTransportIcon, userId } =
+    useChat();
+
+  if (!userId) return;
 
   return (
     <main className="flex h-screen bg-black">
@@ -32,8 +35,8 @@ export default function Chat() {
         {/* Messages */}
         <ScrollArea className="flex-1 p-6">
           <div className="space-y-6 max-w-4xl mx-auto">
-            {messages.map((message) => (
-              <ChatBubble key={message.id} message={message} />
+            {messages.map((message, index) => (
+              <ChatBubble key={index} message={message} userId={userId} />
             ))}
           </div>
         </ScrollArea>

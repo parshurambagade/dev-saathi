@@ -10,6 +10,7 @@ import cors from "cors";
 import paymentRouter from "./routes/payment.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import handleConnection from "./socket/handleConnection.js";
 
 const app = express();
 const server = createServer(app);
@@ -17,10 +18,11 @@ const server = createServer(app);
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL || "http://localhost:5173",
-    methods: ["GET", "POST"],
     credentials: true,
   },
 });
+
+handleConnection(io);
 
 app.use(
   cors({
@@ -50,4 +52,4 @@ connectDb()
       console.log(`App is running on the port ${PORT}...`);
     });
   })
-  .catch((err) => console.log("Error: ", err));
+  .catch((err) => console.error("Error: ", err));
