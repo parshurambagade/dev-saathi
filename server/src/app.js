@@ -11,6 +11,7 @@ import paymentRouter from "./routes/payment.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import handleConnection from "./socket/handleConnection.js";
+import chatRouter from "./routes/chat.js";
 
 const app = express();
 const server = createServer(app);
@@ -42,6 +43,7 @@ app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 app.use("/", paymentRouter);
+app.use("/", chatRouter);
 
 const PORT = process.env.PORT || 7777;
 
