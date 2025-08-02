@@ -1,10 +1,11 @@
+import { formatChatTime } from "@/lib/time";
 import { User, Ship } from "lucide-react";
 
 interface Message {
-  _id: string;
+  _id?: string;
   sender: string;
   content: string;
-  timestamp: Date;
+  createdAt?: Date;
 }
 interface ChatBubbleProps {
   message: Message;
@@ -55,7 +56,7 @@ export default function ChatBubble({ message, userId }: ChatBubbleProps) {
                 : "text-zinc-500"
             }`}
           >
-            {message?.timestamp?.toString()}
+            {formatChatTime(message?.createdAt as Date)}
           </p>
         </div>
       </div>

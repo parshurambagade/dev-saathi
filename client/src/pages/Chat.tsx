@@ -13,10 +13,11 @@ export default function Chat() {
     handleSend,
     getTransportIcon,
     userId,
+    targetUser,
   } = useChat();
 
-  if (!userId) return;
-
+  if (!userId || !targetUser) return;
+  console.log("messages:", messages);
   return (
     <main className="flex h-screen bg-black">
       {/* Chat Interface - Left Side */}
@@ -29,10 +30,11 @@ export default function Chat() {
             </div>
             <div>
               <h1 className="text-lg font-semibold text-white">
-                GlobalShip Logistics
+                {targetUser?.firstName} {targetUser?.lastName}
               </h1>
-              <p className="text-sm text-zinc-400">
-                AI Quote Assistant • Get instant shipping quotes
+              <p className="text-sm text-zinc-400 line-clamp-1">
+                {targetUser?.about?.slice(0, 50) || "No description available"}
+                ...
               </p>
             </div>
           </div>
@@ -58,6 +60,7 @@ export default function Chat() {
                   placeholder="Describe your shipment requirements..."
                   className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-400 pr-12 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                  maxLength={200}
                 />
                 <Button
                   onClick={handleSend}

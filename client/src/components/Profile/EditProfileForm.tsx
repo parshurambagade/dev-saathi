@@ -177,6 +177,7 @@ export default function EditProfileForm({
                   )
                 }
                 placeholder="Tell others about yourself..."
+                maxLength={250}
               />
             </div>
           </div>

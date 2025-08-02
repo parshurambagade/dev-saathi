@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "@/constants";
 import createSocketConnection from "@/socket/socket";
 import type { RootState } from "@/store/appStore";
+import type { UserInfo } from "@/store/slices/userSlice";
 import axios from "axios";
 import { Ship } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -8,17 +9,17 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 interface Message {
-  id: string;
-  senderId: string;
-  receiverId: string;
+  _id?: string;
+  sender: string;
   content: string;
-  timestamp: Date;
+  createdAt?: Date;
 }
 
 const useChat = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const { targetUserId } = useParams();
+  const [targetUser, setTargetUser] = useState<UserInfo | null>(null);
   const { userInfo } = useSelector((store: RootState) => store.user);
   const userId = userInfo?._id;
 
@@ -34,10 +35,27 @@ const useChat = () => {
       message: {
         sender: userId,
         content: input,
+        createdAt: new Date(),
       },
     });
 
     setInput("");
+  };
+
+  const fetchTargetUser = async (targetUserId: string) => {
+    try {
+      if (!targetUserId) return;
+
+      const response = await axios.get(API_BASE_URL + "/user/" + targetUserId, {
+        withCredentials: true,
+      });
+
+      if (!response.data.data) throw new Error("Error fetching target user!");
+
+      setTargetUser(response.data.data);
+    } catch (error) {
+      console.error("Error fetching target user:", error);
+    }
   };
 
   const fetchChat = async (targetUserId: string) => {
@@ -85,6 +103,7 @@ const useChat = () => {
   useEffect(() => {
     if (!targetUserId || !userId) return;
     fetchChat(targetUserId);
+    fetchTargetUser(targetUserId);
   }, [userId, targetUserId]);
 
   return {
@@ -96,6 +115,7 @@ const useChat = () => {
     userId,
     fetchChat,
     targetUserId,
+    targetUser,
   };
 };
 
