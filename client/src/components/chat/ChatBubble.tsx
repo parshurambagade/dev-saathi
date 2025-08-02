@@ -1,9 +1,8 @@
 import { User, Ship } from "lucide-react";
 
 interface Message {
-  id: string;
-  senderId: string;
-  receiverId: string;
+  _id: string;
+  sender: string;
   content: string;
   timestamp: Date;
 }
@@ -18,22 +17,22 @@ export default function ChatBubble({ message, userId }: ChatBubbleProps) {
   return (
     <div
       className={`flex ${
-        message.senderId === userId ? "justify-end" : "justify-start"
+        message.sender === userId ? "justify-end" : "justify-start"
       }`}
     >
       <div
         className={`flex items-start space-x-3 max-w-[85%] ${
-          message.senderId === userId ? "flex-row-reverse space-x-reverse" : ""
+          message.sender === userId ? "flex-row-reverse space-x-reverse" : ""
         }`}
       >
         <div
           className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-            message.senderId !== userId
+            message.sender !== userId
               ? "bg-white text-black"
               : "bg-gradient-to-r from-blue-600 to-cyan-500"
           }`}
         >
-          {message.senderId === userId ? (
+          {message.sender === userId ? (
             <User className="w-4 h-4" />
           ) : (
             <Ship className="w-4 h-4 text-white" />
@@ -42,7 +41,7 @@ export default function ChatBubble({ message, userId }: ChatBubbleProps) {
         <div className="flex flex-col space-y-1">
           <div
             className={`rounded-2xl px-4 py-3 ${
-              message.senderId === userId
+              message.sender === userId
                 ? "bg-white text-black ml-auto"
                 : "bg-zinc-800 text-white border border-zinc-700"
             }`}
@@ -51,12 +50,12 @@ export default function ChatBubble({ message, userId }: ChatBubbleProps) {
           </div>
           <p
             className={`text-xs px-2 ${
-              message.senderId === userId
+              message.sender === userId
                 ? "text-right text-zinc-500"
                 : "text-zinc-500"
             }`}
           >
-            {message.timestamp.toString()}
+            {message?.timestamp?.toString()}
           </p>
         </div>
       </div>

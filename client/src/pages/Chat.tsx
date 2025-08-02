@@ -6,8 +6,14 @@ import ChatBubble from "@/components/chat/ChatBubble";
 import useChat from "@/hooks/useChat";
 
 export default function Chat() {
-  const { input, setInput, messages, handleSend, getTransportIcon, userId } =
-    useChat();
+  const {
+    input,
+    setInput,
+    messages,
+    handleSend,
+    getTransportIcon,
+    userId,
+  } = useChat();
 
   if (!userId) return;
 

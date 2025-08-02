@@ -1,5 +1,7 @@
+import { API_BASE_URL } from "@/constants";
 import createSocketConnection from "@/socket/socket";
 import type { RootState } from "@/store/appStore";
+import axios from "axios";
 import { Ship } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -20,27 +22,41 @@ const useChat = () => {
   const { userInfo } = useSelector((store: RootState) => store.user);
   const userId = userInfo?._id;
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     if (!userId || !targetUserId) return;
-
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      senderId: userId,
-      receiverId: targetUserId,
-      content: input,
-      timestamp: new Date(),
-    };
 
     const socket = createSocketConnection();
     socket.emit("sendMessage", {
       userId,
       targetUserId,
-      message: newMessage,
+      message: {
+        sender: userId,
+        content: input,
+      },
     });
 
     setInput("");
+  };
+
+  const fetchChat = async (targetUserId: string) => {
+    try {
+      if (!targetUserId) return;
+
+      const response = await axios.get(API_BASE_URL + "/chat/" + targetUserId, {
+        withCredentials: true,
+      });
+
+      if (!response.data.data.messages)
+        throw new Error("Error fetching messages!");
+
+      setMessages([...response.data.data.messages]);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("ERROR: ", error?.message);
+    }
   };
 
   const getTransportIcon = () => {
@@ -66,7 +82,21 @@ const useChat = () => {
     };
   }, [targetUserId, userId]);
 
-  return { input, setInput, messages, handleSend, getTransportIcon, userId };
+  useEffect(() => {
+    if (!targetUserId || !userId) return;
+    fetchChat(targetUserId);
+  }, [userId, targetUserId]);
+
+  return {
+    input,
+    setInput,
+    messages,
+    handleSend,
+    getTransportIcon,
+    userId,
+    fetchChat,
+    targetUserId,
+  };
 };
 
 export default useChat;

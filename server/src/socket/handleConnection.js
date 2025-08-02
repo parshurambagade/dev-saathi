@@ -1,3 +1,4 @@
+import { saveMessageService } from "../services/chat.js";
 import { generateRoomId } from "../utils/socket.js";
 
 const handleConnection = (io) => {
@@ -8,11 +9,16 @@ const handleConnection = (io) => {
       socket.join(roomId);
     });
 
-    socket.on("sendMessage", ({ userId, targetUserId, message }) => {
-      const roomId = generateRoomId(userId, targetUserId);
-      io.to(roomId).emit("messageReceived", {
-        message,
-      });
+    socket.on("sendMessage", async ({ userId, targetUserId, message }) => {
+      try {
+        const roomId = generateRoomId(userId, targetUserId);
+        await saveMessageService(userId, targetUserId, message);
+        io.to(roomId).emit("messageReceived", {
+          message,
+        });
+      } catch (error) {
+        console.error("ERROR: ", error?.message);
+      }
     });
 
     // Handle disconnection
