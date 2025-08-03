@@ -19,6 +19,12 @@ export const USER_SAFE_DATA = [
   "gender",
   "about",
   "skills",
+  "isPremium",
+  "premiumExpiry",
+  "createdAt",
+  "updatedAt",
+  "_id",
+  "cloudinaryPublicId",
 ];
 
 export const MEMBERSHIP_TYPES = {
