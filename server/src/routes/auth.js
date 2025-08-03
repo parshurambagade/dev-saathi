@@ -3,6 +3,7 @@ import { validateRegisterData } from "../utils/validation.js";
 import validator from "validator";
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import { USER_SAFE_DATA } from "../constants.js";
 
 const authRouter = express.Router();
 
@@ -25,9 +26,14 @@ authRouter.post("/login", async (req, res) => {
 
     if (!token) throw new Error("Token not found!");
 
+    const safeUserData = USER_SAFE_DATA.reduce((acc, key) => {
+      acc[key] = user[key];
+      return acc;
+    }, {});
+
     res
       .cookie("token", token, { expires: new Date(Date.now() + 7 * 360000000) })
-      .json({ message: "Login successfull!", user: user });
+      .json({ message: "Login successfull!", user: safeUserData });
   } catch (error) {
     res.status(400).send(error?.message || "ERROR: Something went wrong!");
   }
@@ -61,10 +67,16 @@ authRouter.post("/register", async (req, res) => {
 
     if (!token) throw new Error("Token not found!");
 
+    // only send user's safe data
+    const safeUserData = USER_SAFE_DATA.reduce((acc, key) => {
+      acc[key] = user[key];
+      return acc;
+    }, {});
+
     res
       .cookie("token", token, { expires: new Date(Date.now() + 7 * 360000000) })
       .status(201)
-      .json({ message: "Registration successfull!", data: user });
+      .json({ message: "Registration successfull!", data: safeUserData });
   } catch (error) {
     res.status(400).send(error?.message || "ERROR: Something went wrong!");
   }
