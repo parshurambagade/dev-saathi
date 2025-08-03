@@ -76,6 +76,10 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    cloudinaryPublicId: {
+      type: String,
+      default: null,
+    },
     isPremium: {
       type: Boolean,
       default: false,

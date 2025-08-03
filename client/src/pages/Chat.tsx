@@ -14,10 +14,11 @@ export default function Chat() {
     getTransportIcon,
     userId,
     targetUser,
+    userInfo,
   } = useChat();
 
   if (!userId || !targetUser) return;
-  console.log("messages:", messages);
+
   return (
     <main className="flex h-screen bg-black">
       {/* Chat Interface - Left Side */}
@@ -25,8 +26,22 @@ export default function Chat() {
         {/* Chat Header */}
         <div className="bg-zinc-900/50 border-b border-zinc-800 p-4 backdrop-blur-sm">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center">
-              {getTransportIcon()}
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center overflow-hidden ${
+                targetUser?.imageUrl
+                  ? "border-2 border-blue-300"
+                  : "bg-gradient-to-r from-blue-600 to-cyan-500"
+              }`}
+            >
+              {targetUser?.imageUrl ? (
+                <img
+                  src={targetUser.imageUrl}
+                  alt={`${targetUser.firstName} ${targetUser.lastName}`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                getTransportIcon()
+              )}
             </div>
             <div>
               <h1 className="text-lg font-semibold text-white">
@@ -34,7 +49,9 @@ export default function Chat() {
               </h1>
               <p className="text-sm text-zinc-400 line-clamp-1">
                 {targetUser?.about?.slice(0, 50) || "No description available"}
-                ...
+                {targetUser.about && targetUser?.about?.length > 50 ? (
+                  <span className="text-zinc-500">...</span>
+                ) : null}
               </p>
             </div>
           </div>
@@ -44,7 +61,13 @@ export default function Chat() {
         <ScrollArea className="flex-1 p-6">
           <div className="space-y-6 max-w-4xl mx-auto">
             {messages.map((message, index) => (
-              <ChatBubble key={index} message={message} userId={userId} />
+              <ChatBubble
+                key={index}
+                message={message}
+                userId={userId}
+                currentUserImage={userInfo?.imageUrl}
+                targetUserImage={targetUser?.imageUrl}
+              />
             ))}
           </div>
         </ScrollArea>

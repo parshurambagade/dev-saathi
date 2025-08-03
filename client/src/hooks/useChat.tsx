@@ -116,6 +116,7 @@ const useChat = () => {
     fetchChat,
     targetUserId,
     targetUser,
+    userInfo,
   };
 };
 

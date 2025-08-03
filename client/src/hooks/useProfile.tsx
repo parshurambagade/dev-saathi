@@ -9,12 +9,28 @@ import { setUserInfo as updateUserInfo } from "@/store/slices/userSlice";
 const useProfile = () => {
   const user = useSelector((state: RootState) => state.user.userInfo);
   const [userInfo, setUserInfo] = React.useState<UserInfo | null>(user);
+  const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
+  const [imagePreview, setImagePreview] = React.useState<string | null>(null);
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     setUserInfo(user);
-  }, [user]);
+    // Clean up any preview URLs when user changes
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [user, imagePreview]);
+
+  const handleImageSelect = (file: File) => {
+    setSelectedImage(file);
+
+    // Create preview URL
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
+  };
 
   const handleUpdateProfile = async (newUserInfo: UserInfo | null) => {
     try {
@@ -24,19 +40,33 @@ const useProfile = () => {
             .filter((s) => s !== "") // Remove empty strings
         : [];
 
+      const formData = new FormData();
+
+      // Add text fields to FormData
+      if (newUserInfo?.firstName)
+        formData.append("firstName", newUserInfo.firstName);
+      if (newUserInfo?.lastName)
+        formData.append("lastName", newUserInfo.lastName);
+      if (newUserInfo?.age) formData.append("age", newUserInfo.age.toString());
+      if (newUserInfo?.gender) formData.append("gender", newUserInfo.gender);
+      if (newUserInfo?.about) formData.append("about", newUserInfo.about);
+      if (processedSkills.length > 0) {
+        formData.append("skills", JSON.stringify(processedSkills));
+      }
+
+      // Add image file if selected
+      if (selectedImage) {
+        formData.append("profileImage", selectedImage);
+      }
+
       const response = await axios.patch(
         API_BASE_URL + "/profile/edit",
-        {
-          firstName: newUserInfo?.firstName,
-          lastName: newUserInfo?.lastName,
-          age: newUserInfo?.age,
-          gender: newUserInfo?.gender,
-          imageUrl: newUserInfo?.imageUrl,
-          skills: processedSkills,
-          about: newUserInfo?.about,
-        },
+        formData,
         {
           withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
@@ -52,8 +82,22 @@ const useProfile = () => {
 
   const handleCancelEdit = () => {
     setUserInfo(user);
+    setSelectedImage(null);
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+    setImagePreview(null);
   };
-  return { userInfo, setUserInfo, handleUpdateProfile, handleCancelEdit };
+
+  return {
+    userInfo,
+    setUserInfo,
+    handleUpdateProfile,
+    handleCancelEdit,
+    handleImageSelect,
+    selectedImage,
+    imagePreview,
+  };
 };
 
 export default useProfile;

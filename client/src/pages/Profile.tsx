@@ -5,8 +5,15 @@ import type { UserInfo } from "@/store/slices/userSlice";
 import BackButton from "@/components/ui/back-button";
 
 const Profile = () => {
-  const { userInfo, setUserInfo, handleUpdateProfile, handleCancelEdit } =
-    useProfile();
+  const { 
+    userInfo, 
+    setUserInfo, 
+    handleUpdateProfile, 
+    handleCancelEdit,
+    handleImageSelect,
+    selectedImage,
+    imagePreview 
+  } = useProfile();
 
   if (!userInfo) {
     return <div>Loading user data...</div>;
@@ -21,6 +28,9 @@ const Profile = () => {
           setUserInfo={setUserInfo}
           onUpdate={handleUpdateProfile}
           onCancel={handleCancelEdit}
+          onImageSelect={handleImageSelect}
+          selectedImage={selectedImage}
+          imagePreview={imagePreview}
         />
       </div>
       <ProfileCard user={userInfo as Partial<UserInfo>} />
