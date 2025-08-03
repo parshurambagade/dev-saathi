@@ -17,11 +17,17 @@ export default function EditProfileForm({
   setUserInfo,
   onUpdate,
   onCancel,
+  onImageSelect,
+  selectedImage,
+  imagePreview,
 }: {
   user: UserInfo | null;
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo | null>>;
   onUpdate: (newUserInfo: UserInfo | null) => Promise<void>;
   onCancel: () => void;
+  onImageSelect: (file: File) => void;
+  selectedImage: File | null;
+  imagePreview: string | null;
 }) {
   if (!user) return null;
 
@@ -109,18 +115,65 @@ export default function EditProfileForm({
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="imageUrl">Profile Image URL</Label>
-              <Input
-                id="imageUrl"
-                type="url"
-                value={imageUrl || ""}
-                onChange={(e) =>
-                  setUserInfo((prev) =>
-                    prev ? { ...prev, imageUrl: e.target.value } : prev
-                  )
-                }
-                placeholder="https://example.com/image.jpg"
-              />
+              <Label htmlFor="profileImage">Profile Image</Label>
+              <div className="flex flex-col gap-3">
+                {/* Current/Preview Image */}
+                <div className="w-32 h-32 mx-auto border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-gray-50">
+                  {imagePreview ? (
+                    <img
+                      src={imagePreview}
+                      alt="Profile preview"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt="Current profile"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      <span className="text-sm">No image</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* File Input */}
+                <Input
+                  id="profileImage"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      // Validate file size (max 5MB)
+                      if (file.size > 5 * 1024 * 1024) {
+                        alert("Image size should be less than 5MB");
+                        return;
+                      }
+
+                      // Validate file type
+                      if (!file.type.startsWith("image/")) {
+                        alert("Please select a valid image file");
+                        return;
+                      }
+
+                      onImageSelect(file);
+                    }
+                  }}
+                  className="cursor-pointer"
+                />
+
+                <p className="text-xs text-gray-500 text-center">
+                  Upload an image (max 5MB). Supported formats: JPG, PNG, GIF
+                </p>
+
+                {selectedImage && (
+                  <p className="text-sm text-green-600 text-center">
+                    Selected: {selectedImage.name}
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className="grid gap-2">
