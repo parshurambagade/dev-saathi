@@ -5,14 +5,14 @@ import type { UserInfo } from "@/store/slices/userSlice";
 import BackButton from "@/components/ui/back-button";
 
 const Profile = () => {
-  const { 
-    userInfo, 
-    setUserInfo, 
-    handleUpdateProfile, 
+  const {
+    userInfo,
+    setUserInfo,
+    handleUpdateProfile,
     handleCancelEdit,
     handleImageSelect,
     selectedImage,
-    imagePreview 
+    imagePreview,
   } = useProfile();
 
   if (!userInfo) {
@@ -20,20 +20,24 @@ const Profile = () => {
   }
 
   return (
-    <main className="flex flex-col md:flex-row justify-center min-h-[96vh] w-full gap-6 py-4 md:py-12 px-2 md:px-4 bg-gray-100 ">
-      <div className="w-full md:w-auto">
+    <main className="flex flex-col justify-center min-h-[96vh] w-full py-4 md:py-12 px-2 md:px-4 bg-gray-100">
+      <div className="w-full mb-6">
         <BackButton />
-        <EditProfileForm
-          user={userInfo}
-          setUserInfo={setUserInfo}
-          onUpdate={handleUpdateProfile}
-          onCancel={handleCancelEdit}
-          onImageSelect={handleImageSelect}
-          selectedImage={selectedImage}
-          imagePreview={imagePreview}
-        />
       </div>
-      <ProfileCard user={userInfo as Partial<UserInfo>} />
+      <div className="flex flex-col md:flex-row justify-center w-full gap-6">
+        <div className="w-full md:w-auto">
+          <EditProfileForm
+            user={userInfo}
+            setUserInfo={setUserInfo}
+            onUpdate={handleUpdateProfile}
+            onCancel={handleCancelEdit}
+            onImageSelect={handleImageSelect}
+            selectedImage={selectedImage}
+            imagePreview={imagePreview}
+          />
+        </div>
+        <ProfileCard user={userInfo as Partial<UserInfo>} />
+      </div>
     </main>
   );
 };

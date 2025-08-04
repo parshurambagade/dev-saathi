@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import BackButton from "@/components/ui/back-button";
 import { Send } from "lucide-react";
 import ChatBubble from "@/components/chat/ChatBubble";
 import useChat from "@/hooks/useChat";
@@ -23,6 +24,11 @@ export default function Chat() {
     <main className="flex h-screen bg-black">
       {/* Chat Interface - Left Side */}
       <div className="flex-1 mx-auto max-w-6xl flex flex-col">
+        {/* Back Button */}
+        <div className="p-4">
+          <BackButton />
+        </div>
+
         {/* Chat Header */}
         <div className="bg-zinc-900/50 border-b border-zinc-800 p-4 backdrop-blur-sm">
           <div className="flex items-center space-x-3">

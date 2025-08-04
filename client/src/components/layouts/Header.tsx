@@ -45,7 +45,10 @@ const Header = () => {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar className="cursor-pointer">
-              <AvatarImage src="" />
+              <AvatarImage
+                src={user?.imageUrl || ""}
+                alt={user?.firstName || "User Avatar"}
+              />
               <AvatarFallback>AB</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
