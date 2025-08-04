@@ -36,8 +36,7 @@ const Profile = () => {
             imagePreview={imagePreview}
           />
         </div>
-        <div className="w-full md:w-auto">
-          {" "}
+        <div className="w-full md:w-auto flex items-center justify-center">
           <ProfileCard user={userInfo as Partial<UserInfo>} />
         </div>
       </div>
