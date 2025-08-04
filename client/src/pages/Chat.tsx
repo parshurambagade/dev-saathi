@@ -118,7 +118,7 @@ export default function Chat() {
                 <Button
                   onClick={handleSend}
                   size="sm"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-black hover:bg-zinc-200 rounded-lg h-8 w-8 p-0"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-black hover:bg-zinc-200 rounded-lg h-8 w-8 p-0 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </Button>

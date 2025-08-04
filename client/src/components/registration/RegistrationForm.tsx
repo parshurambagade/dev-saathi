@@ -96,7 +96,7 @@ export function RegistrationForm() {
           )}
         </CardContent>
         <CardFooter>
-          <Button className="w-full" type="submit" disabled={isLoading}>
+          <Button className="w-full cursor-pointer" type="submit" disabled={isLoading}>
             {isLoading ? "Registering..." : "Register"}
           </Button>
         </CardFooter>
@@ -106,7 +106,7 @@ export function RegistrationForm() {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="font-medium text-blue-600 hover:text-blue-500 underline"
+            className="font-medium text-blue-600 hover:text-blue-500 underline cursor-pointer"
           >
             Sign in here
           </Link>
