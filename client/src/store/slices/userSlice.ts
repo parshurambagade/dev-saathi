@@ -31,10 +31,13 @@ export const userSlice = createSlice({
     setUserInfo: (state, action: PayloadAction<UserInfo | null>) => {
       state.userInfo = action.payload;
     },
+    clearUserStore: (state) => {
+      state.userInfo = null;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUserInfo } = userSlice.actions;
+export const { setUserInfo, clearUserStore } = userSlice.actions;
 
 export default userSlice.reducer;

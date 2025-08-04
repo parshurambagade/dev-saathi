@@ -40,7 +40,7 @@ const useLogin = () => {
         setError("Login failed. Please check your credentials.");
         return;
       }
-
+      setError("");
       dispatch(setUserInfo(response?.data?.user));
       navigate("/");
     } catch (err: unknown) {

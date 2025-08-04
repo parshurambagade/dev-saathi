@@ -1,5 +1,4 @@
 import { formatChatTime } from "@/lib/time";
-import { User, Ship } from "lucide-react";
 
 interface Message {
   _id?: string;
@@ -38,17 +37,17 @@ export default function ChatBubble({
         }`}
       >
         <div
-          className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ${
+          className={`w-8 h-8 mt-1 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ${
             message.sender !== userId
               ? "bg-white text-black border-2 border-gray-200"
-              : "bg-gradient-to-r from-blue-600 to-cyan-500 border-2 border-blue-300"
+              : "hidden"
           }`}
         >
           {displayImage ? (
             <img
               src={displayImage}
               alt={isCurrentUser ? "Your avatar" : "User avatar"}
-              className="w-full h-full object-cover rounded-full"
+              className="w-full  h-full object-cover rounded-full"
               onError={(e) => {
                 // Fallback to icon if image fails to load
                 e.currentTarget.style.display = "none";
@@ -56,15 +55,6 @@ export default function ChatBubble({
               }}
             />
           ) : null}
-
-          {/* Fallback icons */}
-          <div className={displayImage ? "hidden" : ""}>
-            {message.sender === userId ? (
-              <User className="w-4 h-4" />
-            ) : (
-              <Ship className="w-4 h-4 text-white" />
-            )}
-          </div>
         </div>
         <div className="flex flex-col space-y-1">
           <div

@@ -28,6 +28,7 @@ const useFeed = () => {
           throw new Error("Failed to fetch feed");
         }
         const data = response.data.data;
+        dispatch(setError(""));
         dispatch(setProfiles(data));
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {

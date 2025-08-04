@@ -67,7 +67,7 @@ export function LoginForm() {
           )}
         </CardContent>
         <CardFooter>
-          <Button className="w-full" type="submit" disabled={isLoading}>
+          <Button className="w-full cursor-pointer" type="submit" disabled={isLoading}>
             {isLoading ? "Logging in..." : "Log in"}
           </Button>
         </CardFooter>
@@ -77,7 +77,7 @@ export function LoginForm() {
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="font-medium text-blue-600 hover:text-blue-500 underline"
+            className="font-medium text-blue-600 hover:text-blue-500 underline cursor-pointer"
           >
             Sign up here
           </Link>

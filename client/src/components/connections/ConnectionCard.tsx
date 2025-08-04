@@ -27,7 +27,7 @@ const ConnectionCard = ({ connection }: { connection: UserInfo }) => {
       <div className="flex-1 flex items-center justify-center cursor-pointer">
         <Link
           to={"/chat/" + connection._id}
-          className="border rounded-xl bg-secondary text-secondary-foreground hover:opacity-90 text-center py-2 px-3 text-sm"
+          className="border rounded-xl bg-secondary text-secondary-foreground hover:opacity-90 text-center py-2 px-3 text-sm cursor-pointer"
         >
           Chat
         </Link>
