@@ -60,16 +60,12 @@ const usePremium = () => {
     icon: <Crown className="h-6 w-6" />,
     color: "border-purple-300 bg-gradient-to-br from-purple-50 to-pink-100",
     features: [
-      "Unlimited Super Likes",
-      "See who liked you",
-      "Unlimited rewinds",
-      "30 Boost per month",
+      "Unlimited likes/interests and ignore requests",
+      "Direct message without mutual connection",
+      "Profile boost in feed (shown first)",
+      "Premium badge in profile card",
       "Priority customer support",
-      "Hide ads",
-      "Advanced filters",
-      "Read receipts",
-      "Profile boost",
-      "Top picks daily",
+      "Advanced matching algorithms",
     ],
   };
 
