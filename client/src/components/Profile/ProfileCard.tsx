@@ -21,7 +21,7 @@ const ProfileCard = ({
   const { firstName, lastName, age, gender, about, skills, imageUrl } = user;
 
   return (
-    <Card className="w-full max-w-sm overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border-0 bg-white backdrop-blur-lg py-0 max-h-max">
+    <Card className="w-full min-w-sm max-w-sm overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border-0 bg-white backdrop-blur-lg py-0 max-h-max">
       <CardHeader className="p-0 relative">
         <div className="relative overflow-hidden group">
           <img

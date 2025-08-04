@@ -9,7 +9,7 @@ const Requests = () => {
 
   return (
     <main className="min-h-[95vh] py-4 md:py-12 px-2 md:px-4 bg-accent">
-      <div className="w-full max-w-md mx-auto">
+      <div className="w-full max-w-xl mx-auto">
         <BackButton />
         <h1 className="font-bold text-3xl text-center mb-2">Your Requests</h1>
 
