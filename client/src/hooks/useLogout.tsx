@@ -1,8 +1,9 @@
 import { API_BASE_URL } from "@/constants";
-import { setUserInfo } from "@/store/slices/userSlice";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearUserStore } from "@/store/slices/userSlice";
+import { clearFeedStore } from "@/store/slices/feedSlice";
 
 const useLogout = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,8 @@ const useLogout = () => {
         { withCredentials: true }
       );
       if (res.status === 200) {
-        dispatch(setUserInfo(null));
+        dispatch(clearUserStore());
+        dispatch(clearFeedStore());
         navigate("/login");
       }
     } catch (error) {

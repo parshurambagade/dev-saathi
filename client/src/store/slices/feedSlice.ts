@@ -26,9 +26,15 @@ const feedSlice = createSlice({
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
+    clearFeedStore(state) {
+      state.profiles = [];
+      state.error = null;
+      state.loading = false;
+    },
   },
 });
 
-export const { setProfiles, setError, setLoading } = feedSlice.actions;
+export const { setProfiles, setError, setLoading, clearFeedStore } =
+  feedSlice.actions;
 
 export default feedSlice.reducer;
