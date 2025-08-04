@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import BackButton from "@/components/ui/back-button";
-import { Send } from "lucide-react";
+import { Send, MessageCircle } from "lucide-react";
 import ChatBubble from "@/components/chat/ChatBubble";
 import useChat from "@/hooks/useChat";
 
@@ -66,15 +66,39 @@ export default function Chat() {
         {/* Messages */}
         <ScrollArea className="flex-1 p-6">
           <div className="space-y-6 max-w-4xl mx-auto">
-            {messages.map((message, index) => (
-              <ChatBubble
-                key={index}
-                message={message}
-                userId={userId}
-                currentUserImage={userInfo?.imageUrl}
-                targetUserImage={targetUser?.imageUrl}
-              />
-            ))}
+            {messages.length === 0 ? (
+              <div className="flex flex-col items-center justify-center text-center py-16 px-4">
+                <div className="mb-6">
+                  <MessageCircle className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                    Start the Conversation
+                  </h3>
+                  <p className="text-gray-500 leading-relaxed">
+                    Break the ice! Send your first message to{" "}
+                    {targetUser?.firstName} and start building a meaningful
+                    connection.
+                  </p>
+                </div>
+
+                <div className="bg-white rounded-lg p-4 shadow-sm border max-w-sm">
+                  <p className="text-sm text-gray-600">
+                    💡 <strong>Tip:</strong> Ask about their coding experience,
+                    favorite technologies, or current projects to get the
+                    conversation started!
+                  </p>
+                </div>
+              </div>
+            ) : (
+              messages.map((message, index) => (
+                <ChatBubble
+                  key={index}
+                  message={message}
+                  userId={userId}
+                  currentUserImage={userInfo?.imageUrl}
+                  targetUserImage={targetUser?.imageUrl}
+                />
+              ))
+            )}
           </div>
         </ScrollArea>
 
