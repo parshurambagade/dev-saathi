@@ -4,8 +4,10 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import type { UserInfo } from "@/store/slices/userSlice";
+import { User, Code, Calendar, Heart, X } from "lucide-react";
 
 const ProfileCard = ({
   user,
@@ -21,32 +23,55 @@ const ProfileCard = ({
   const { firstName, lastName, age, gender, about, skills, imageUrl } = user;
 
   return (
-    <Card className="w-full min-w-sm max-w-sm overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border-0 bg-white backdrop-blur-lg py-0 max-h-max">
+    <Card className="w-full max-w-md py-0 mx-auto overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-border bg-card backdrop-blur-lg">
       <CardHeader className="p-0 relative">
         <div className="relative overflow-hidden group">
-          <img
-            src={imageUrl}
-            alt={firstName}
-            className="w-full h-96 object-cover transition-all duration-700 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={firstName || "Profile"}
+              className="w-full h-80 object-cover transition-all duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div className="w-full h-96 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+              <User className="h-24 w-24 text-muted-foreground" />
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
           {/* Floating name badge */}
           <div className="absolute bottom-4 left-4 right-4">
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg">
-              <h2 className="text-xl font-bold text-gray-900 mb-1">
-                {firstName} {lastName}
+            <div className="bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-border">
+              <h2 className="text-xl font-bold text-foreground mb-3">
+                {firstName || "Anonymous"} {lastName || "Developer"}
               </h2>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 flex-wrap">
                 {age && (
-                  <span className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <Badge
+                    variant="secondary"
+                    className="bg-primary/10 text-primary border-primary/20"
+                  >
+                    <Calendar className="h-3 w-3 mr-1" />
                     {age}
-                  </span>
+                  </Badge>
                 )}
                 {gender && (
-                  <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium capitalize">
+                  <Badge
+                    variant="secondary"
+                    className="bg-accent/10 text-accent border-accent/20 capitalize"
+                  >
+                    <User className="h-3 w-3 mr-1" />
                     {gender}
-                  </span>
+                  </Badge>
+                )}
+                {!age && !gender && (
+                  <Badge
+                    variant="secondary"
+                    className="bg-muted/50 text-muted-foreground border-muted"
+                  >
+                    <User className="h-3 w-3 mr-1" />
+                    New Profile
+                  </Badge>
                 )}
               </div>
             </div>
@@ -54,69 +79,95 @@ const ProfileCard = ({
         </div>
       </CardHeader>
 
-      <CardContent className="px-6 py-0 space-y-5">
-        {about && (
-          <div className="space-y-2">
-            <h4 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-              <div className="w-1 h-4 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
-              About
-            </h4>
-            <p className="text-gray-700 leading-relaxed text-sm line-clamp-2">
+      <CardContent className="px-6 py-0 space-y-6">
+        {/* About Section */}
+        <div className="space-y-3">
+          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <div className="w-1 h-4 bg-gradient-to-b from-primary to-accent rounded-full"></div>
+            About
+          </h4>
+          {about ? (
+            <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
               {about}
             </p>
-          </div>
-        )}
+          ) : (
+            <p className="text-muted-foreground/70 leading-relaxed text-sm italic">
+              This developer hasn't shared their story yet. Sometimes the best
+              connections come from discovering someone new!
+            </p>
+          )}
+        </div>
 
-        {skills && skills.filter((skill) => skill.trim()).length > 0 && (
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-              <div className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full"></div>
-              Skills
-            </h4>
+        {/* Skills Section */}
+        <div className="space-y-3">
+          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <div className="w-1 h-4 bg-gradient-to-b from-accent to-primary rounded-full"></div>
+            Skills
+          </h4>
+          {skills &&
+          skills.filter((skill: string) => skill.trim()).length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {skills
-                .filter((skill) => skill.trim())
-                .slice(0, 8)
-                .map((skill, index) => (
-                  <span
+                .filter((skill: string) => skill.trim())
+                .slice(0, 6)
+                .map((skill: string, index: number) => (
+                  <Badge
                     key={index}
-                    className="bg-gradient-to-r from-emerald-50 to-teal-50 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-medium border border-emerald-200/50 hover:shadow-md hover:scale-105 transition-all duration-200"
+                    variant="outline"
+                    className="bg-secondary/50 text-foreground border-border hover:bg-secondary transition-colors"
                   >
+                    <Code className="h-3 w-3 mr-1" />
                     {skill.trim()}
-                  </span>
+                  </Badge>
                 ))}
-              {skills.filter((skill) => skill.trim()).length > 8 && (
-                <span className="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200">
-                  +{skills.filter((skill) => skill.trim()).length - 8}
-                </span>
+              {skills.filter((skill: string) => skill.trim()).length > 6 && (
+                <Badge
+                  variant="outline"
+                  className="bg-muted text-muted-foreground"
+                >
+                  +{skills.filter((skill: string) => skill.trim()).length - 6}
+                </Badge>
               )}
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              <Badge
+                variant="outline"
+                className="bg-muted/30 text-muted-foreground/70 border-dashed"
+              >
+                <Code className="h-3 w-3 mr-1" />
+                Skills coming soon
+              </Badge>
+              <Badge
+                variant="outline"
+                className="bg-primary/5 text-primary/70 border-dashed border-primary/30"
+              >
+                New to DevSaathi
+              </Badge>
+            </div>
+          )}
+        </div>
       </CardContent>
 
-      <CardFooter className="p-6 pt-0 flex gap-3">
+      <CardFooter className="p-6 pt-0 flex gap-4">
         <Button
           variant="outline"
           disabled={!handleIgnoreProfile}
-          className="cursor-pointer flex-1 h-12 rounded-xl border-2 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 hover:shadow-lg transition-all duration-300 font-semibold group"
+          className="cursor-pointer flex-1 h-14 rounded-xl border-2 border-muted-foreground/20 text-muted-foreground hover:bg-muted/50 hover:border-muted-foreground/40 hover:text-foreground transition-all duration-300 font-semibold group"
           onClick={() =>
             handleIgnoreProfile && handleIgnoreProfile(user._id || "")
           }
         >
-          <span className="group-hover:scale-110 transition-transform duration-200">
-            ✕ Pass
-          </span>
+          <X className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
+          Pass
         </Button>
         <Button
-          variant="default"
           disabled={!handleSendRequest}
-          className="cursor-pointer flex-1 h-12 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl group"
+          className="cursor-pointer flex-1 h-14 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl group"
           onClick={() => handleSendRequest && handleSendRequest(user._id || "")}
         >
-          <span className="group-hover:scale-110 transition-transform duration-200">
-            💖 Like
-          </span>
+          <Heart className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
+          Like
         </Button>
       </CardFooter>
     </Card>
