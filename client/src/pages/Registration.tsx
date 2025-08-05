@@ -16,8 +16,20 @@ const Registration = () => {
   }, [user, navigate]);
 
   return (
-    <main className="flex items-start justify-center min-h-screen py-4 md:py-12 px-2 md:px-4 bg-gray-100">
-      <RegistrationForm />
+    <main className="min-h-screen bg-background flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md">
+        {/* Brand Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
+            DevSaathi
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Join the Developer Community
+          </p>
+        </div>
+
+        <RegistrationForm />
+      </div>
     </main>
   );
 };

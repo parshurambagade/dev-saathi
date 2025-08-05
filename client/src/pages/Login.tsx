@@ -16,14 +16,16 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <main className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
+    <main className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
             DevSaathi
           </h1>
-          <p className="text-slate-400 text-lg">Connect. Code. Collaborate.</p>
+          <p className="text-muted-foreground text-lg">
+            Connect. Code. Collaborate.
+          </p>
         </div>
 
         <LoginForm />
