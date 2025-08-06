@@ -95,10 +95,10 @@ const Requests = () => {
 
                   {/* How to get more requests */}
                   <div className="grid gap-4 w-full max-w-lg mb-8">
-                    <Card className="bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20 border-pink-200/50 dark:border-pink-800/30">
+                    <Card className="bg-gradient-to-r from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 border-primary/20 dark:border-primary/30">
                       <CardContent className="p-4 flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center flex-shrink-0">
-                          <Heart className="h-5 w-5 text-white" />
+                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-primary to-primary/80 flex items-center justify-center flex-shrink-0">
+                          <Heart className="h-5 w-5 text-primary-foreground" />
                         </div>
                         <div className="flex-1">
                           <p className="font-semibold text-foreground text-sm">
@@ -111,10 +111,10 @@ const Requests = () => {
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border-green-200/50 dark:border-green-800/30">
+                    <Card className="bg-gradient-to-r from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 border-accent/20 dark:border-accent/30">
                       <CardContent className="p-4 flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0">
-                          <UserCheck className="h-5 w-5 text-white" />
+                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-accent to-accent/80 flex items-center justify-center flex-shrink-0">
+                          <UserCheck className="h-5 w-5 text-accent-foreground" />
                         </div>
                         <div className="flex-1">
                           <p className="font-semibold text-foreground text-sm">
