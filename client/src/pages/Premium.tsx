@@ -9,216 +9,323 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import BackButton from "@/components/ui/back-button";
 import usePremium from "@/hooks/usePremium";
-import { Check, Heart, MessageCircle, Zap } from "lucide-react";
+import {
+  Check,
+  Heart,
+  MessageCircle,
+  Zap,
+  Crown,
+  Sparkles,
+  Star,
+  Shield,
+  Loader2,
+  ArrowRight,
+  Infinity as InfinityIcon,
+} from "lucide-react";
 
 const Premium = () => {
   const { membershipPlan, isLoading, isPremium, handlePurchase, selectedPlan } =
     usePremium();
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 py-12 px-4">
-      {/* Back Button */}
-      <div className="max-w-6xl mx-auto mb-6">
-        <BackButton />
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-primary/5 via-background to-accent/5 pt-6 pb-12 sm:pt-8 sm:pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="mb-4 sm:mb-6">
+            <BackButton />
+          </div>
+
+          {!isPremium ? (
+            <div className="text-center">
+              <div className="flex flex-col sm:flex-row items-center justify-center mb-3 sm:mb-4">
+                <Crown className="h-6 w-6 sm:h-8 sm:w-8 text-accent mb-2 sm:mb-0 sm:mr-3" />
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  DevSaathi Premium
+                </h1>
+              </div>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-3 sm:mb-4 px-2">
+                Unlock exclusive features and supercharge your developer
+                connections
+              </p>
+            </div>
+          ) : (
+            <div className="text-center">
+              <div className="flex flex-col sm:flex-row items-center justify-center mb-3 sm:mb-4">
+                <Crown className="h-6 w-6 sm:h-8 sm:w-8 text-accent mb-2 sm:mb-0 sm:mr-3" />
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  Premium Member
+                </h1>
+              </div>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-3 sm:mb-4 px-2">
+                You're enjoying all the exclusive premium features!
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
-      {!isPremium ? (
-        <div className="max-w-6xl mx-auto">
-          {/* Header Section */}
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center mb-4">
-              <Heart className="h-8 w-8 text-pink-500 mr-2" />
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                DevTinder Premium
-              </h1>
-            </div>
-            <p className="text-xl text-gray-600 mb-2">
-              Unlock exclusive features and supercharge your developer connections
-            </p>
-            <p className="text-sm text-gray-500">
-              Get unlimited access and premium perks to find your perfect match faster
-            </p>
-          </div>
+      {/* Main Content */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pb-8 sm:pb-12 -mt-6 sm:-mt-8">
+        {!isPremium ? (
+          <div className="flex flex-col items-center">
+            {/* Stats Section */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12 lg:mb-16 w-full max-w-5xl">
+              <Card className="text-center bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:border-primary/30 transition-colors duration-300">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6">
+                    <InfinityIcon className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-primary" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-2 lg:mb-3">
+                    Unlimited
+                  </h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm">
+                    Likes & Connections
+                  </p>
+                </CardContent>
+              </Card>
 
-          {/* Stats Section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="text-center p-6 bg-white rounded-lg shadow-sm border">
-              <div className="flex items-center justify-center mb-2">
-                <Heart className="h-6 w-6 text-pink-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Unlimited</h3>
-              <p className="text-gray-600">Likes & Connections</p>
-            </div>
-            <div className="text-center p-6 bg-white rounded-lg shadow-sm border">
-              <div className="flex items-center justify-center mb-2">
-                <MessageCircle className="h-6 w-6 text-blue-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Direct</h3>
-              <p className="text-gray-600">Messaging Access</p>
-            </div>
-            <div className="text-center p-6 bg-white rounded-lg shadow-sm border">
-              <div className="flex items-center justify-center mb-2">
-                <Zap className="h-6 w-6 text-yellow-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Profile</h3>
-              <p className="text-gray-600">Boost & Badge</p>
-            </div>
-          </div>
+              <Card className="text-center bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:border-accent/30 transition-colors duration-300">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6">
+                    <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-accent" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-2 lg:mb-3">
+                    Direct
+                  </h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm">
+                    Messaging Access
+                  </p>
+                </CardContent>
+              </Card>
 
-          {/* Pricing Card */}
-          <div className="max-w-md mx-auto">
-            <Card
-              className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 ${membershipPlan.color} ring-2 ring-purple-400`}
-            >
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg">
-                <Zap className="h-4 w-4 inline mr-1" />
-                Most Popular
-              </div>
+              <Card className="text-center bg-gradient-to-br from-primary/5 to-accent/10 border-border hover:border-primary/20 transition-colors duration-300 sm:col-span-2 lg:col-span-1">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6">
+                    <Star className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-primary" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-2 lg:mb-3">
+                    Profile
+                  </h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm">
+                    Boost & Badge
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
 
-              <CardHeader className="text-center pb-4">
-                <div className="inline-flex items-center justify-center p-3 rounded-full mb-4 bg-purple-200">
-                  {membershipPlan.icon}
+            {/* Pricing Card */}
+            <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
+              <Card className="relative overflow-hidden border-2 border-primary/20 shadow-xl">
+                <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-primary-foreground px-3 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-bl-lg flex items-center gap-1">
+                  <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden xs:inline">Most Popular</span>
+                  <span className="xs:hidden">Popular</span>
                 </div>
-                <CardTitle className="text-2xl font-bold text-gray-900">
-                  {membershipPlan.name}
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  Perfect for developers who want unlimited access and exclusive features
-                </CardDescription>
 
-                <div className="mt-4">
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-4xl font-bold text-gray-900">
-                      ₹{membershipPlan.price}
-                    </span>
-                    <div className="text-left">
-                      {membershipPlan.originalPrice && (
-                        <div className="text-sm text-gray-500 line-through">
-                          ₹{membershipPlan.originalPrice}
+                <CardHeader className="text-center pb-4 sm:pb-6 pt-6 sm:pt-8 px-4 sm:px-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    {membershipPlan.icon}
+                  </div>
+                  <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
+                    {membershipPlan.name}
+                  </CardTitle>
+                  <CardDescription className="text-muted-foreground text-sm sm:text-base leading-relaxed px-2">
+                    Perfect for developers who want unlimited access and
+                    exclusive features
+                  </CardDescription>
+
+                  <div className="mt-4 sm:mt-6">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
+                        ₹{membershipPlan.price}
+                      </span>
+                      <div className="text-left">
+                        {membershipPlan.originalPrice && (
+                          <div className="text-xs sm:text-sm text-muted-foreground line-through">
+                            ₹{membershipPlan.originalPrice}
+                          </div>
+                        )}
+                        <div className="text-xs sm:text-sm text-muted-foreground">
+                          {membershipPlan.duration}
                         </div>
-                      )}
-                      <div className="text-sm text-gray-600">
-                        {membershipPlan.duration}
                       </div>
                     </div>
+                    {membershipPlan.originalPrice && (
+                      <Badge className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 text-xs sm:text-sm">
+                        Save ₹
+                        {membershipPlan.originalPrice - membershipPlan.price}
+                      </Badge>
+                    )}
                   </div>
-                  {membershipPlan.originalPrice && (
-                    <Badge className="mt-2 bg-green-100 text-green-800 hover:bg-green-100">
-                      Save ₹
-                      {membershipPlan.originalPrice - membershipPlan.price}
-                    </Badge>
-                  )}
+                </CardHeader>
+
+                <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6 pb-6 sm:pb-8">
+                  <ul className="space-y-3 sm:space-y-4">
+                    {membershipPlan.features.map((feature, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-2 sm:gap-3"
+                      >
+                        <div className="h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-primary" />
+                        </div>
+                        <span className="text-foreground text-xs sm:text-sm leading-relaxed">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    onClick={() => handlePurchase(membershipPlan.type)}
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-semibold py-2.5 sm:py-3 text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl group"
+                    size="lg"
+                  >
+                    {isLoading && selectedPlan === membershipPlan.type ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+                        <span className="text-sm sm:text-base">
+                          Processing...
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center gap-2">
+                        <Crown className="h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform duration-300" />
+                        <span className="text-sm sm:text-base">
+                          Get {membershipPlan.name}
+                        </span>
+                        <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    )}
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Trust Indicators */}
+            <Card className="mt-8 sm:mt-12 lg:mt-16 w-full max-w-4xl bg-card/50 border-border/50">
+              <CardContent className="p-4 sm:p-6 lg:p-8 text-center">
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3 sm:mb-4">
+                  Why choose DevSaathi Premium?
+                </h3>
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 lg:mb-8 max-w-2xl mx-auto px-2">
+                  Join the exclusive community of premium developers. Get
+                  unlimited access to all features, direct messaging
+                  capabilities, priority placement in feeds, and a prestigious
+                  premium badge that sets you apart from other developers.
+                </p>
+                <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-6 text-xs sm:text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+                    <span>30-day money back guarantee</span>
+                  </div>
+                  <div className="hidden sm:block text-border">•</div>
+                  <div className="flex items-center gap-2">
+                    <Star className="h-4 w-4 sm:h-5 sm:w-5 text-accent flex-shrink-0" />
+                    <span>Secure payments</span>
+                  </div>
+                  <div className="hidden sm:block text-border">•</div>
+                  <div className="flex items-center gap-2">
+                    <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+                    <span>24/7 support</span>
+                  </div>
                 </div>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                <ul className="space-y-3">
-                  {membershipPlan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  onClick={() => handlePurchase(membershipPlan.type)}
-                  disabled={isLoading}
-                  className="w-full mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 text-lg transition-all duration-300 cursor-pointer"
-                >
-                  {isLoading && selectedPlan === membershipPlan.type ? (
-                    <div className="flex items-center justify-center gap-2">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      Processing...
-                    </div>
-                  ) : (
-                    `Get ${membershipPlan.name}`
-                  )}
-                </Button>
               </CardContent>
             </Card>
           </div>
+        ) : (
+          /* Premium Member View */
+          <div className="flex flex-col items-center">
+            {/* Premium Features Display */}
+            <Card className="w-full max-w-6xl mb-8 sm:mb-12 border-primary/20 shadow-xl">
+              <CardContent className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                  <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:border-primary/30 transition-colors duration-300">
+                    <CardContent className="p-4 sm:p-6 lg:p-8 flex items-start gap-3 sm:gap-4 lg:gap-6">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-foreground mb-2 sm:mb-3 text-base sm:text-lg">
+                          Unlimited Interactions
+                        </h4>
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                          Send unlimited likes, interests, and ignore requests
+                          without any daily limits.
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
 
-          {/* Footer Section */}
-          <div className="text-center mt-12 p-6 bg-white rounded-lg shadow-sm border max-w-2xl mx-auto">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Why choose DevTinder Premium?
-            </h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              Join the exclusive community of premium developers. Get unlimited access to all features,
-              direct messaging capabilities, priority placement in feeds, and a prestigious premium badge
-              that sets you apart from other developers.
-            </p>
-            <div className="flex items-center justify-center gap-4 mt-4 text-sm text-gray-500">
-              <span>✨ 30-day money back guarantee</span>
-              <span>•</span>
-              <span>🔒 Secure payments</span>
-              <span>•</span>
-              <span>📞 24/7 support</span>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="max-w-4xl mx-auto text-center py-12">
-          <div className="mb-8">
-            <div className="flex items-center justify-center mb-4">
-              <Zap className="h-12 w-12 text-yellow-500 mr-3" />
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Premium Member
-              </h2>
-            </div>
-            <p className="text-xl text-gray-600 mb-2">
-              You're enjoying all the exclusive premium features!
-            </p>
-            <p className="text-sm text-gray-500">
-              Thank you for being a valued member of our premium community
-            </p>
-          </div>
+                  <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:border-accent/30 transition-colors duration-300">
+                    <CardContent className="p-4 sm:p-6 lg:p-8 flex items-start gap-3 sm:gap-4 lg:gap-6">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                        <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-accent" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-foreground mb-2 sm:mb-3 text-base sm:text-lg">
+                          Direct Messaging
+                        </h4>
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                          Message any developer directly without waiting for
+                          mutual connections.
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
 
-          {/* Premium Features Display */}
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Your Premium Features</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                <Heart className="h-6 w-6 text-pink-500 flex-shrink-0 mt-1" />
-                <div className="text-left">
-                  <h4 className="font-semibold text-gray-900">Unlimited Interactions</h4>
-                  <p className="text-gray-600 text-sm">Send unlimited likes, interests, and ignore requests without any daily limits.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg">
-                <MessageCircle className="h-6 w-6 text-blue-500 flex-shrink-0 mt-1" />
-                <div className="text-left">
-                  <h4 className="font-semibold text-gray-900">Direct Messaging</h4>
-                  <p className="text-gray-600 text-sm">Message any developer directly without waiting for mutual connections.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg">
-                <Zap className="h-6 w-6 text-yellow-500 flex-shrink-0 mt-1" />
-                <div className="text-left">
-                  <h4 className="font-semibold text-gray-900">Profile Boost</h4>
-                  <p className="text-gray-600 text-sm">Your profile appears first in everyone's feed, maximizing your visibility.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg">
-                <Check className="h-6 w-6 text-purple-500 flex-shrink-0 mt-1" />
-                <div className="text-left">
-                  <h4 className="font-semibold text-gray-900">Premium Badge</h4>
-                  <p className="text-gray-600 text-sm">Show off your premium status with an exclusive badge on your profile.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <Card className="bg-gradient-to-br from-primary/5 to-accent/10 border-border hover:border-primary/20 transition-colors duration-300">
+                    <CardContent className="p-4 sm:p-6 lg:p-8 flex items-start gap-3 sm:gap-4 lg:gap-6">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 flex items-center justify-center flex-shrink-0">
+                        <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-foreground mb-2 sm:mb-3 text-base sm:text-lg">
+                          Profile Boost
+                        </h4>
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                          Your profile appears first in everyone's feed,
+                          maximizing your visibility.
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
 
-          <Button
-            onClick={() => (window.location.href = "/profile")}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-8 rounded-lg text-lg cursor-pointer"
-          >
-            Go to Profile
-          </Button>
-        </div>
-      )}
-    </main>
+                  <Card className="bg-gradient-to-br from-accent/5 to-primary/10 border-border hover:border-accent/20 transition-colors duration-300">
+                    <CardContent className="p-4 sm:p-6 lg:p-8 flex items-start gap-3 sm:gap-4 lg:gap-6">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-r from-accent/20 to-primary/20 flex items-center justify-center flex-shrink-0">
+                        <Star className="h-5 w-5 sm:h-6 sm:w-6 text-accent" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-foreground mb-2 sm:mb-3 text-base sm:text-lg">
+                          Premium Badge
+                        </h4>
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                          Show off your premium status with an exclusive badge
+                          on your profile.
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Button
+              onClick={() => (window.location.href = "/profile")}
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-semibold py-2.5 sm:py-3 px-6 sm:px-8 text-sm sm:text-base shadow-lg hover:shadow-xl group"
+              size="lg"
+            >
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
+              <span>Go to Profile</span>
+              <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
