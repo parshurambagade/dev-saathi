@@ -11,6 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import type { UserInfo } from "@/store/slices/userSlice";
+import {
+  Image as ImageIcon,
+  Upload,
+  Save,
+  X,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
 
 export default function EditProfileForm({
   user,
@@ -34,19 +42,28 @@ export default function EditProfileForm({
   const { firstName, lastName, age, gender, imageUrl, skills, about } = user;
 
   return (
-    <Card className="w-full max-w-lg max-h-max">
-      <CardHeader>
-        <CardTitle>Edit your profile</CardTitle>
-        <CardDescription>
-          Update your profile information to help others find you
+    <Card className="w-full max-w-lg border-border bg-card shadow-lg">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-xl font-bold text-foreground">
+          Edit Profile
+        </CardTitle>
+        <CardDescription className="text-muted-foreground">
+          Update your information to improve connections
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form>
-          <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="firstName">Firstname</Label>
+
+      <CardContent className="space-y-8">
+        <form className="space-y-8">
+          {/* Name Section */}
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="firstName"
+                  className="text-sm font-medium text-foreground"
+                >
+                  First Name
+                </Label>
                 <Input
                   id="firstName"
                   type="text"
@@ -57,11 +74,18 @@ export default function EditProfileForm({
                       prev ? { ...prev, firstName: e.target.value } : prev
                     )
                   }
+                  className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
                   required
                 />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="lastName">Lastname</Label>
+
+              <div className="space-y-2">
+                <Label
+                  htmlFor="lastName"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Last Name
+                </Label>
                 <Input
                   id="lastName"
                   type="text"
@@ -72,14 +96,20 @@ export default function EditProfileForm({
                       prev ? { ...prev, lastName: e.target.value } : prev
                     )
                   }
+                  className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
                   required
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="age">Age</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="age"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Age
+                </Label>
                 <Input
                   id="age"
                   type="number"
@@ -92,10 +122,17 @@ export default function EditProfileForm({
                       prev ? { ...prev, age: Number(e.target.value) } : prev
                     )
                   }
+                  className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
                 />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="gender">Gender</Label>
+
+              <div className="space-y-2">
+                <Label
+                  htmlFor="gender"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Gender
+                </Label>
                 <select
                   id="gender"
                   defaultValue={gender}
@@ -104,7 +141,7 @@ export default function EditProfileForm({
                       prev ? { ...prev, gender: e.target.value } : prev
                     )
                   }
-                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <option value="">Select gender</option>
                   <option value="male">Male</option>
@@ -113,32 +150,40 @@ export default function EditProfileForm({
                 </select>
               </div>
             </div>
+          </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="profileImage">Profile Image</Label>
-              <div className="flex flex-col gap-3">
-                {/* Current/Preview Image */}
-                <div className="w-32 h-32 mx-auto border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-gray-50">
-                  {imagePreview ? (
-                    <img
-                      src={imagePreview}
-                      alt="Profile preview"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt="Current profile"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      <span className="text-sm">No image</span>
+          {/* Profile Image Section */}
+          <div className="space-y-4">
+            <div className="flex flex-col items-center space-y-5">
+              {/* Image Preview */}
+              <div className="relative w-28 h-28 border-2 border-dashed border-border rounded-xl overflow-hidden bg-muted/20 group hover:border-primary/30 transition-all duration-300">
+                {imagePreview ? (
+                  <img
+                    src={imagePreview}
+                    alt="Profile preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : imageUrl ? (
+                  <img
+                    src={imageUrl}
+                    alt="Current profile"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    <div className="text-center">
+                      <ImageIcon className="h-7 w-7 mx-auto mb-1" />
+                      <span className="text-xs">No image</span>
                     </div>
-                  )}
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <Upload className="h-5 w-5 text-white" />
                 </div>
+              </div>
 
-                {/* File Input */}
+              {/* File Input */}
+              <div className="w-full max-w-xs">
                 <Input
                   id="profileImage"
                   type="file"
@@ -161,40 +206,45 @@ export default function EditProfileForm({
                       onImageSelect(file);
                     }
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-background border-border file:bg-primary file:text-primary-foreground file:border-0 file:rounded-md file:px-3 file:py-1 file:mr-3 hover:file:bg-primary/90"
                 />
 
-                <p className="text-xs text-gray-500 text-center">
-                  Upload an image (max 5MB). Supported formats: JPG, PNG, GIF
-                </p>
-
-                {selectedImage && (
-                  <p className="text-sm text-green-600 text-center">
-                    Selected: {selectedImage.name}
+                <div className="mt-3 text-center">
+                  <p className="text-xs text-muted-foreground">
+                    JPG, PNG, GIF up to 5MB
                   </p>
-                )}
+                  {selectedImage && (
+                    <div className="flex items-center justify-center gap-1 mt-2 text-xs text-primary">
+                      <CheckCircle className="h-3 w-3" />
+                      <span>{selectedImage.name}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="skills">Skills</Label>
+          {/* Skills Section */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label
+                htmlFor="skills"
+                className="text-sm font-medium text-foreground"
+              >
+                Skills & Technologies
+              </Label>
               <Input
                 id="skills"
                 type="text"
                 value={skills?.join(", ") || ""}
                 onChange={(e) => {
                   const inputValue = e.target.value;
-
-                  // Allow typing freely, but check skill count when comma is added
                   const skillsArray = inputValue
                     .split(",")
                     .map((s) => s.trim())
                     .filter((s) => s !== "");
 
-                  // Only prevent if user is trying to add more than 8 completed skills
-                  // (skills that are followed by a comma or at the end)
                   if (skillsArray.length > 8) {
-                    // Don't update if trying to exceed 8 skills
                     return;
                   }
 
@@ -207,20 +257,43 @@ export default function EditProfileForm({
                       : prev
                   );
                 }}
-                placeholder="JavaScript, React, Node.js"
+                placeholder="JavaScript, React, Node.js, Python..."
+                className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
               />
-              <p className="text-sm text-gray-500">
-                Separate skills with commas (Maximum 8 skills)
-              </p>
+
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">
+                  Separate with commas
+                </span>
+                <span
+                  className={`${
+                    skills && skills.filter((s) => s !== "").length > 8
+                      ? "text-destructive"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {skills ? skills.filter((s) => s !== "").length : 0}/8
+                </span>
+              </div>
+
               {skills && skills.filter((s) => s !== "").length > 8 && (
-                <p className="text-sm text-amber-600 font-medium">
-                  Maximum of 8 skills allowed
-                </p>
+                <div className="flex items-center gap-1 text-xs text-destructive">
+                  <AlertCircle className="h-3 w-3" />
+                  <span>Maximum of 8 skills allowed</span>
+                </div>
               )}
             </div>
+          </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="about">About</Label>
+          {/* About Section */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label
+                htmlFor="about"
+                className="text-sm font-medium text-foreground"
+              >
+                Tell your story
+              </Label>
               <Textarea
                 id="about"
                 value={about || ""}
@@ -229,26 +302,45 @@ export default function EditProfileForm({
                     prev ? { ...prev, about: e.target.value } : prev
                   )
                 }
-                placeholder="Tell others about yourself..."
+                placeholder="Share your passion for development, your goals, and what makes you unique..."
                 maxLength={250}
+                className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary min-h-[100px] resize-none"
               />
+
+              <div className="flex justify-between text-xs">
+                <span className="text-muted-foreground">
+                  Help others understand who you are
+                </span>
+                <span
+                  className={`${
+                    (about?.length || 0) > 225
+                      ? "text-destructive"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {about?.length || 0}/250
+                </span>
+              </div>
             </div>
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex gap-2">
+
+      <CardFooter className="flex gap-3 pt-2">
         <Button
           type="submit"
-          className="flex-1 cursor-pointer"
+          className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-medium transition-all duration-300"
           onClick={() => onUpdate(user)}
         >
+          <Save className="h-4 w-4 mr-2" />
           Save Changes
         </Button>
         <Button
           variant="outline"
-          className="flex-1 cursor-pointer"
+          className="flex-1 border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300"
           onClick={onCancel}
         >
+          <X className="h-4 w-4 mr-2" />
           Cancel
         </Button>
       </CardFooter>
