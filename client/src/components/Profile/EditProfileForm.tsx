@@ -154,9 +154,9 @@ export default function EditProfileForm({
 
           {/* Profile Image Section */}
           <div className="space-y-4">
-            <div className="flex flex-col items-center space-y-5">
+            <div className="flex gap-4 items-center space-y-5">
               {/* Image Preview */}
-              <div className="relative w-28 h-28 border-2 border-dashed border-border rounded-xl overflow-hidden bg-muted/20 group hover:border-primary/30 transition-all duration-300">
+              <div className="relative aspect-square w-28 h-auto border-2 border-dashed border-border rounded-xl overflow-hidden bg-muted/20 group hover:border-primary/30 transition-all duration-300 mb-0">
                 {imagePreview ? (
                   <img
                     src={imagePreview}
@@ -172,7 +172,7 @@ export default function EditProfileForm({
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                     <div className="text-center">
-                      <ImageIcon className="h-7 w-7 mx-auto mb-1" />
+                      <ImageIcon className="h-7 w-7 mx-auto" />
                       <span className="text-xs">No image</span>
                     </div>
                   </div>
@@ -183,7 +183,7 @@ export default function EditProfileForm({
               </div>
 
               {/* File Input */}
-              <div className="w-full max-w-xs">
+              <div className="w-full">
                 <Input
                   id="profileImage"
                   type="file"
@@ -209,7 +209,7 @@ export default function EditProfileForm({
                   className="cursor-pointer bg-background border-border file:bg-primary file:text-primary-foreground file:border-0 file:rounded-md file:px-3 file:py-1 file:mr-3 hover:file:bg-primary/90"
                 />
 
-                <div className="mt-3 text-center">
+                <div className="mt-3">
                   <p className="text-xs text-muted-foreground">
                     JPG, PNG, GIF up to 5MB
                   </p>

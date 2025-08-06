@@ -1,8 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import BackButton from "@/components/ui/back-button";
-import { Send, MessageCircle } from "lucide-react";
+import {
+  Send,
+  MessageCircle,
+  Code2,
+  Heart,
+  ArrowLeft,
+  MoreVertical,
+  Phone,
+  Video,
+} from "lucide-react";
 import ChatBubble from "@/components/chat/ChatBubble";
 import useChat from "@/hooks/useChat";
 
@@ -12,121 +23,255 @@ export default function Chat() {
     setInput,
     messages,
     handleSend,
-    getTransportIcon,
     userId,
     targetUser,
     userInfo,
   } = useChat();
 
-  if (!userId || !targetUser) return;
+  if (!userId || !targetUser) {
+    return (
+      <div className="h-screen bg-background flex items-center justify-center p-4">
+        <Card className="w-full max-w-sm">
+          <CardContent className="flex flex-col items-center justify-center py-8">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+              <MessageCircle className="h-6 w-6 text-primary animate-pulse" />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Loading conversation...
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <main className="flex h-screen bg-black">
-      {/* Chat Interface - Left Side */}
-      <div className="flex-1 mx-auto max-w-6xl flex flex-col">
-        {/* Back Button */}
-        <div className="p-4">
-          <BackButton />
-        </div>
+    <div className="min-h-screen bg-background">
+      {/* Chat Header - Sticky */}
+      <div className="sticky top-0 bg-background/95 backdrop-blur-md border-b border-border z-30 shadow-sm">
+        <div className="container mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8 sm:py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              {/* Back Button - Mobile Only */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="sm:hidden p-2 h-auto"
+                onClick={() => window.history.back()}
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
 
-        {/* Chat Header */}
-        <div className="bg-zinc-900/50 border-b border-zinc-800 p-4 backdrop-blur-sm">
-          <div className="flex items-center space-x-3">
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center overflow-hidden ${
-                targetUser?.imageUrl
-                  ? "border-2 border-blue-300"
-                  : "bg-gradient-to-r from-blue-600 to-cyan-500"
-              }`}
-            >
-              {targetUser?.imageUrl ? (
-                <img
-                  src={targetUser.imageUrl}
-                  alt={`${targetUser.firstName} ${targetUser.lastName}`}
-                  className="w-full h-full object-cover"
+              {/* Back Button - Desktop */}
+              <div className="hidden sm:block">
+                <BackButton />
+              </div>
+
+              {/* User Info */}
+              <Avatar className="h-10 w-10 ring-2 ring-primary/20">
+                <AvatarImage
+                  src={targetUser?.imageUrl}
+                  alt={`${targetUser?.firstName}`}
                 />
-              ) : (
-                getTransportIcon()
-              )}
-            </div>
-            <div>
-              <h1 className="text-lg font-semibold text-white">
-                {targetUser?.firstName} {targetUser?.lastName}
-              </h1>
-              <p className="text-sm text-zinc-400 line-clamp-1">
-                {targetUser?.about?.slice(0, 50) || "No description available"}
-                {targetUser.about && targetUser?.about?.length > 50 ? (
-                  <span className="text-zinc-500">...</span>
-                ) : null}
-              </p>
-            </div>
-          </div>
-        </div>
+                <AvatarFallback className="bg-gradient-to-r from-primary/20 to-accent/20 text-sm font-medium">
+                  {targetUser?.firstName?.[0]}
+                  {targetUser?.lastName?.[0]}
+                </AvatarFallback>
+              </Avatar>
 
-        {/* Messages */}
-        <ScrollArea className="flex-1 p-6">
-          <div className="space-y-6 max-w-4xl mx-auto">
-            {messages.length === 0 ? (
-              <div className="flex flex-col items-center justify-center text-center py-16 px-4">
-                <div className="mb-6">
-                  <MessageCircle className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-700 mb-2">
-                    Start the Conversation
-                  </h3>
-                  <p className="text-gray-500 leading-relaxed">
-                    Break the ice! Send your first message to{" "}
-                    {targetUser?.firstName} and start building a meaningful
-                    connection.
-                  </p>
-                </div>
-
-                <div className="bg-white rounded-lg p-4 shadow-sm border max-w-sm">
-                  <p className="text-sm text-gray-600">
-                    💡 <strong>Tip:</strong> Ask about their coding experience,
-                    favorite technologies, or current projects to get the
-                    conversation started!
-                  </p>
+              <div className="min-w-0 flex-1">
+                <h2 className="font-semibold text-foreground truncate">
+                  {targetUser?.firstName} {targetUser?.lastName}
+                </h2>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-xs text-muted-foreground">
+                    Active now
+                  </span>
                 </div>
               </div>
-            ) : (
-              messages.map((message, index) => (
-                <ChatBubble
-                  key={index}
-                  message={message}
-                  userId={userId}
-                  currentUserImage={userInfo?.imageUrl}
-                  targetUserImage={targetUser?.imageUrl}
-                />
-              ))
-            )}
-          </div>
-        </ScrollArea>
+            </div>
 
-        {/* Input Area */}
-        <div className="bg-zinc-900/50 border-t border-zinc-800 p-4 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex space-x-3">
-              <div className="flex-1 relative">
-                <Input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Describe your shipment requirements..."
-                  className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-400 pr-12 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                  maxLength={200}
-                />
-                <Button
-                  onClick={handleSend}
-                  size="sm"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white text-black hover:bg-zinc-200 rounded-lg h-8 w-8 p-0 cursor-pointer"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
-              </div>
+            {/* Action Buttons */}
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden sm:flex h-9 w-9 p-0"
+              >
+                <Phone className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden sm:flex h-9 w-9 p-0"
+              >
+                <Video className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost" size="sm" className="h-9 w-9 p-0">
+                <MoreVertical className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
       </div>
-    </main>
+
+      {/* Messages Container */}
+      <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 min-h-[calc(100vh-180px)]">
+        {messages.length === 0 ? (
+          /* Enhanced Empty State */
+          <div className="flex flex-col items-center justify-center min-h-[calc(100vh-280px)] text-center px-4">
+            {/* Profile Preview */}
+            <div className="mb-8">
+              <Avatar className="h-20 w-20 mx-auto mb-4 ring-4 ring-primary/10">
+                <AvatarImage
+                  src={targetUser?.imageUrl}
+                  alt={targetUser?.firstName}
+                />
+                <AvatarFallback className="bg-gradient-to-r from-primary/20 to-accent/20 text-lg font-semibold">
+                  {targetUser?.firstName?.[0]}
+                  {targetUser?.lastName?.[0]}
+                </AvatarFallback>
+              </Avatar>
+
+              <h3 className="text-xl font-bold text-foreground mb-2">
+                {targetUser?.firstName} {targetUser?.lastName}
+              </h3>
+
+              {targetUser?.about && (
+                <p className="text-sm text-muted-foreground max-w-xs mx-auto mb-4">
+                  {targetUser.about}
+                </p>
+              )}
+
+              {/* Skills */}
+              {targetUser?.skills && targetUser.skills.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-2 max-w-sm mx-auto">
+                  {targetUser.skills.slice(0, 4).map((skill, index) => (
+                    <Badge
+                      key={index}
+                      variant="secondary"
+                      className="text-xs bg-primary/10 text-primary"
+                    >
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Call to Action */}
+            <div className="max-w-md mx-auto">
+              <h4 className="text-lg font-semibold text-foreground mb-3">
+                Say hello to {targetUser?.firstName}! 👋
+              </h4>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Start a conversation about your shared interests in development
+                and technology.
+              </p>
+
+              {/* Quick Starters */}
+              <div className="grid gap-3">
+                <Card
+                  className="p-4 hover:bg-muted/50 transition-colors cursor-pointer border-dashed"
+                  onClick={() =>
+                    setInput(
+                      `Hi ${targetUser?.firstName}! I saw your profile and would love to connect. What technologies are you working with lately?`
+                    )
+                  }
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Code2 className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-foreground">
+                        Ask about tech stack
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        What are you building?
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card
+                  className="p-4 hover:bg-muted/50 transition-colors cursor-pointer border-dashed"
+                  onClick={() =>
+                    setInput(
+                      `Hey ${targetUser?.firstName}! I'm interested in connecting with fellow developers. Would you like to share your coding journey?`
+                    )
+                  }
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                      <Heart className="h-4 w-4 text-accent" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-foreground">
+                        Share experiences
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Talk about your journey
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* Messages */
+          <div className="space-y-4 pb-24">
+            {messages.map((message, index) => (
+              <ChatBubble
+                key={message._id || index}
+                message={message}
+                userId={userId}
+                currentUserImage={userInfo?.imageUrl}
+                targetUserImage={targetUser?.imageUrl}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Sticky Input Area */}
+      <div className="sticky bottom-0 bg-background/95 backdrop-blur-md border-t border-border z-10">
+        <div className="container mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-end gap-3">
+            <div className="flex-1 relative">
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder={`Message ${targetUser?.firstName}...`}
+                className="min-h-[44px] py-3 px-4 pr-12 rounded-2xl border-border bg-muted/30 focus:bg-background transition-colors resize-none"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
+                maxLength={1000}
+              />
+
+              <Button
+                onClick={handleSend}
+                disabled={!input.trim()}
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90 disabled:opacity-50"
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+
+          {input.length > 800 && (
+            <p className="text-xs text-muted-foreground mt-2 text-center">
+              {input.length}/1000 characters
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
