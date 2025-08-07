@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const useLogin = () => {
   const [email, setEmail] = useState("parshuram@gmail.com");
@@ -20,6 +21,9 @@ const useLogin = () => {
     setError("");
 
     if (!email || !password) {
+      toast.error("Please fill in all fields", {
+        description: "Email and password are required to login.",
+      });
       setError("Email and password are required.");
       setIsLoading(false);
       return;
@@ -37,11 +41,17 @@ const useLogin = () => {
       );
 
       if (response.status !== 200) {
+        toast.error("Login failed", {
+          description: "Please check your credentials and try again.",
+        });
         setError("Login failed. Please check your credentials.");
         return;
       }
       setError("");
       dispatch(setUserInfo(response?.data?.user));
+      toast.success("Welcome back!", {
+        description: `Good to see you again, ${response?.data?.user?.firstName}!`,
+      });
       navigate("/");
     } catch (err: unknown) {
       console.error("Login error:", err);
@@ -54,6 +64,10 @@ const useLogin = () => {
           : // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (axiosError?.response?.data as any)?.message) ||
         "Login failed. Please try again.";
+
+      toast.error("Login failed", {
+        description: errorMessage,
+      });
       setError(errorMessage);
     } finally {
       setIsLoading(false);

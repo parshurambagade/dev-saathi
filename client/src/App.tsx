@@ -10,6 +10,7 @@ import Requests from "./pages/Requests";
 import Registration from "./pages/Registration";
 import Premium from "./pages/Premium";
 import Chat from "./pages/Chat";
+import { Toaster } from "./components/ui/sonner";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        <Toaster />
       </Provider>
     </>
   );

@@ -2,6 +2,7 @@ import { API_BASE_URL } from "@/constants";
 import axios from "axios";
 import { Crown } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type MembershipType = "premium";
 
@@ -41,7 +42,9 @@ const usePremium = () => {
       setIsPremium(true);
     } catch (error) {
       console.error("Error verifying premium status:", error);
-      alert("Failed to verify premium status. Please try again.");
+      toast.error("Failed to verify premium status", {
+        description: "Please try again later.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -72,6 +75,12 @@ const usePremium = () => {
   const handlePurchase = async (membershipType: MembershipType) => {
     setIsLoading(true);
     setSelectedPlan(membershipType);
+
+    if (isLoading) {
+      toast.loading("Preparing payment...", {
+        description: "Setting up your premium membership order.",
+      });
+    }
 
     try {
       const response = await axios.post(
@@ -111,7 +120,7 @@ const usePremium = () => {
           contact: notes?.contact,
         },
         theme: {
-          color: "#F37254",
+          color: "#3b82f6",
         },
         handler: async function (response: {
           razorpay_payment_id: string;
@@ -133,16 +142,20 @@ const usePremium = () => {
             );
 
             if (captureResponse.status === 200) {
-              alert("Payment successful! Premium activated.");
+              toast.success("🎉 Premium activated!", {
+                description:
+                  "Welcome to DevSaathi Premium! Enjoy your new features.",
+              });
               handleVerifyPremium(); // Refresh premium status
             } else {
               throw new Error("Failed to capture payment");
             }
           } catch (error) {
             console.error("Error capturing payment:", error);
-            alert(
-              "Payment completed but there was an issue. Please contact support."
-            );
+            toast.error("Payment processing issue", {
+              description:
+                "Payment completed but there was an issue. Please contact support.",
+            });
           }
         },
       };
@@ -157,7 +170,10 @@ const usePremium = () => {
       rzp.open();
     } catch (error) {
       console.error("Payment failed:", error);
-      alert("Payment failed. Please try again.");
+      toast.error("Payment failed", {
+        description:
+          "There was an issue processing your payment. Please try again.",
+      });
     } finally {
       setIsLoading(false);
       setSelectedPlan(null);

@@ -7,6 +7,7 @@ import { Ship } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 interface Message {
   _id?: string;
@@ -55,6 +56,9 @@ const useChat = () => {
       setTargetUser(response.data.data);
     } catch (error) {
       console.error("Error fetching target user:", error);
+      toast.error("Failed to load user information", {
+        description: "Please refresh the page and try again.",
+      });
     }
   };
 
@@ -74,6 +78,9 @@ const useChat = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("ERROR: ", error?.message);
+      toast.error("Failed to load chat messages", {
+        description: "Please refresh the page and try again.",
+      });
     }
   };
 

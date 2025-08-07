@@ -2,6 +2,7 @@ import { API_BASE_URL } from "@/constants";
 import type { UserInfo } from "@/store/slices/userSlice";
 import axios from "axios";
 import React from "react";
+import { toast } from "sonner";
 
 export interface RequestData {
   _id: string;
@@ -53,9 +54,18 @@ const useRequests = () => {
       if (response.status !== 200) {
         throw new Error("Failed to accept request");
       }
+
+      const acceptedRequest = requests.find((req) => req._id === requestId);
       setRequests((prev) => prev.filter((req) => req._id !== requestId));
+
+      toast.success("Connection accepted! 🎉", {
+        description: `You and ${acceptedRequest?.sender?.firstName} are now connected!`,
+      });
     } catch (error) {
       console.error("Error accepting request:", error);
+      toast.error("Failed to accept request", {
+        description: "Please try again later.",
+      });
     }
   };
 
@@ -70,8 +80,15 @@ const useRequests = () => {
         throw new Error("Failed to reject request");
       }
       setRequests((prev) => prev.filter((req) => req._id !== requestId));
+
+      toast("Request declined", {
+        description: "The connection request has been declined.",
+      });
     } catch (error) {
       console.error("Error rejecting request:", error);
+      toast.error("Failed to decline request", {
+        description: "Please try again later.",
+      });
     }
   };
 

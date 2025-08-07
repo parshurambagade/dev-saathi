@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const useRegistration = () => {
   const [firstName, setFirstName] = useState("Parshuram");
@@ -22,6 +23,9 @@ const useRegistration = () => {
     setError("");
 
     if (!firstName || !email || !password) {
+      toast.error("Please fill in all required fields", {
+        description: "First name, email and password are required.",
+      });
       setError("Firstname, Email and password are required.");
       setIsLoading(false);
       return;
@@ -41,10 +45,16 @@ const useRegistration = () => {
       );
 
       if (response.status !== 201) {
+        toast.error("Registration failed", {
+          description: "Please try again with different details.",
+        });
         setError("Registration failed.");
         return;
       }
       dispatch(setUserInfo(response.data.user));
+      toast.success("Welcome to DevSaathi!", {
+        description: `Hi ${firstName}! Let's complete your profile to get started.`,
+      });
       navigate("/profile");
     } catch (err: unknown) {
       console.error("Registration error:", err);
@@ -57,6 +67,10 @@ const useRegistration = () => {
           : // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (axiosError?.response?.data as any)?.message) ||
         "Registration failed. Please try again.";
+
+      toast.error("Registration failed", {
+        description: errorMessage,
+      });
       setError(errorMessage);
     } finally {
       setIsLoading(false);

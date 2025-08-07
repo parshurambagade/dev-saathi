@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearUserStore } from "@/store/slices/userSlice";
 import { clearFeedStore } from "@/store/slices/feedSlice";
+import { toast } from "sonner";
 
 const useLogout = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,16 @@ const useLogout = () => {
       if (res.status === 200) {
         dispatch(clearUserStore());
         dispatch(clearFeedStore());
+        toast.success("Logged out successfully", {
+          description: "See you later! Come back soon.",
+        });
         navigate("/login");
       }
     } catch (error) {
       console.error("Logout failed:", error);
+      toast.error("Logout failed", {
+        description: "Please try again.",
+      });
     }
   };
 

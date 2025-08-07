@@ -4,6 +4,7 @@ import { setError, setLoading, setProfiles } from "@/store/slices/feedSlice";
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 const useFeed = () => {
   const { profiles, error, loading } = useSelector(
@@ -61,9 +62,16 @@ const useFeed = () => {
 
       dispatch(setProfiles(profiles.filter((p) => p._id !== userId)));
 
+      toast.success("Connection request sent!", {
+        description: "Your request has been sent successfully. Good luck!",
+      });
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       dispatch(setError(err.message));
+      toast.error("Failed to send request", {
+        description: err.message || "Please try again later.",
+      });
       console.error("Error sending request:", err);
     }
   };
@@ -85,9 +93,17 @@ const useFeed = () => {
       }
 
       dispatch(setProfiles(profiles.filter((p) => p._id !== userId)));
+
+      toast("Profile passed", {
+        description: "Moving on to the next profile...",
+      });
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       dispatch(setError(err.message));
+      toast.error("Failed to pass profile", {
+        description: err.message || "Please try again later.",
+      });
       console.error("Error ignoring profile:", err);
     }
   };

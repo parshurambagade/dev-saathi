@@ -5,6 +5,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo as updateUserInfo } from "@/store/slices/userSlice";
+import { toast } from "sonner";
 
 const useProfile = () => {
   const user = useSelector((state: RootState) => state.user.userInfo);
@@ -74,8 +75,15 @@ const useProfile = () => {
         throw new Error("Failed to update profile");
       }
       dispatch(updateUserInfo(response.data.data));
+
+      toast.success("Profile updated successfully! ✨", {
+        description: "Your changes have been saved.",
+      });
     } catch (error) {
       console.error("Error updating profile:", error);
+      toast.error("Failed to update profile", {
+        description: "Please check your information and try again.",
+      });
       throw error;
     }
   };
