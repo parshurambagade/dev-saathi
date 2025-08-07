@@ -10,6 +10,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import type { UserInfo } from "@/store/slices/userSlice";
 import {
   Image as ImageIcon,
@@ -133,21 +140,23 @@ export default function EditProfileForm({
                 >
                   Gender
                 </Label>
-                <select
-                  id="gender"
-                  defaultValue={gender}
-                  onChange={(e) =>
+                <Select
+                  defaultValue={gender || undefined}
+                  onValueChange={(value) =>
                     setUserInfo((prev) =>
-                      prev ? { ...prev, gender: e.target.value } : prev
+                      prev ? { ...prev, gender: value } : prev
                     )
                   }
-                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
+                  <SelectTrigger  className="w-full bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary">
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
