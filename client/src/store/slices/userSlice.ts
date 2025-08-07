@@ -12,6 +12,8 @@ export interface UserInfo {
   password: string;
   skills?: string[];
   imageUrl?: string;
+  isPremium?: boolean;
+  premiumExpiry?: string;
   createdAt?: string;
   updatedAt?: string;
   __v?: number;

@@ -16,8 +16,25 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <main className="flex items-start justify-center min-h-screen py-4 md:py-12 px-2 md:px-4 bg-gray-100">
-      <LoginForm />
+    <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        {/* Brand Header */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center mb-4">
+            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-xl">D</span>
+            </div>
+          </div>
+          <h1 className="text-4xl font-bold text-primary mb-2">
+            DevSaathi
+          </h1>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Connect. Code. Collaborate.
+          </p>
+        </div>
+
+        <LoginForm />
+      </div>
     </main>
   );
 };

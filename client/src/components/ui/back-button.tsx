@@ -10,8 +10,8 @@ interface BackButtonProps {
 
 const BackButton = ({
   to = "/",
-  label = "Back to Feed",
-  className = "mb-4",
+  label = "Back",
+  className = "mb-0",
 }: BackButtonProps) => {
   const navigate = useNavigate();
 
@@ -19,10 +19,10 @@ const BackButton = ({
     <Button
       variant="ghost"
       onClick={() => navigate(to)}
-      className={`hover:bg-gray-200 transition-colors duration-200 ${className}`}
+      className={`hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-all duration-300 group ${className}`}
     >
-      <ArrowLeft className="w-4 h-4 mr-2" />
-      {label}
+      <ArrowLeft className="w-4 h-4 mr-0 group-hover:translate-x-[-2px] transition-transform duration-300 " />
+      <span>{label}</span>
     </Button>
   );
 };
