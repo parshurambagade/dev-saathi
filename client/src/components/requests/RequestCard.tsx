@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Calendar, X, Check, Code } from "lucide-react";
+import { User, Calendar, X, Check, Code, Crown } from "lucide-react";
 
 const RequestCard = ({
   request,
@@ -15,8 +15,16 @@ const RequestCard = ({
   onAccept: (id: string) => void;
   onReject: (id: string) => void;
 }) => {
-  const { imageUrl, firstName, lastName, about, age, gender, skills } =
-    request.sender as UserInfo;
+  const {
+    imageUrl,
+    firstName,
+    lastName,
+    about,
+    age,
+    gender,
+    skills,
+    isPremium,
+  } = request.sender as UserInfo;
 
   return (
     <Card className="w-full h-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border bg-card">
@@ -50,7 +58,13 @@ const RequestCard = ({
         </div>
 
         {/* Age and Gender */}
-        <div className="flex justify-center gap-2 mb-4">
+        <div className="flex justify-center gap-2 mb-4 flex-wrap">
+          {isPremium && (
+            <Badge className="bg-accent/90 text-white border-accent/30 hover:bg-accent">
+              <Crown className="h-3 w-3 mr-1" />
+              Premium
+            </Badge>
+          )}
           {age && (
             <Badge
               variant="secondary"

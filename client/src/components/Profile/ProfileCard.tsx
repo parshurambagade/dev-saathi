@@ -7,7 +7,7 @@ import {
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import type { UserInfo } from "@/store/slices/userSlice";
-import { User, Code, Calendar, Heart, X } from "lucide-react";
+import { User, Code, Calendar, Heart, X, Crown } from "lucide-react";
 
 const ProfileCard = ({
   user,
@@ -20,7 +20,16 @@ const ProfileCard = ({
 }) => {
   if (!user) return;
 
-  const { firstName, lastName, age, gender, about, skills, imageUrl } = user;
+  const {
+    firstName,
+    lastName,
+    age,
+    gender,
+    about,
+    skills,
+    imageUrl,
+    isPremium,
+  } = user;
 
   return (
     <Card className="w-full max-w-sm py-0 mx-auto overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-border bg-card backdrop-blur-lg">
@@ -39,6 +48,16 @@ const ProfileCard = ({
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
+          {/* Premium Badge - Top Right */}
+          {isPremium && (
+            <div className="absolute top-4 right-4 z-10">
+              <Badge className="bg-accent hover:bg-accent/90 text-white border-accent/30 shadow-lg backdrop-blur-sm flex items-center gap-1.5 px-3 py-1.5">
+                <Crown className="h-3.5 w-3.5" />
+                <span className="text-xs font-semibold">Premium</span>
+              </Badge>
+            </div>
+          )}
+
           {/* Floating name badge */}
           <div className="absolute bottom-4 left-4 right-4">
             <div className="bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-border">
@@ -46,6 +65,12 @@ const ProfileCard = ({
                 {firstName || "Anonymous"} {lastName || "Developer"}
               </h2>
               <div className="flex items-center gap-2 flex-wrap">
+                {isPremium && (
+                  <Badge className="bg-accent/90 text-white border-accent/30 hover:bg-accent">
+                    <Crown className="h-3 w-3 mr-1" />
+                    Premium
+                  </Badge>
+                )}
                 {age && (
                   <Badge
                     variant="secondary"

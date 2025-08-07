@@ -13,6 +13,7 @@ import {
   MoreVertical,
   Phone,
   Video,
+  Crown,
 } from "lucide-react";
 import ChatBubble from "@/components/chat/ChatBubble";
 import useChat from "@/hooks/useChat";
@@ -80,9 +81,17 @@ export default function Chat() {
               </Avatar>
 
               <div className="min-w-0 flex-1">
-                <h2 className="font-semibold text-foreground truncate">
-                  {targetUser?.firstName} {targetUser?.lastName}
-                </h2>
+                <div className="flex items-center gap-2">
+                  <h2 className="font-semibold text-foreground truncate">
+                    {targetUser?.firstName} {targetUser?.lastName}
+                  </h2>
+                  {targetUser?.isPremium && (
+                    <Badge className="bg-accent/90 text-white border-accent/30 text-xs px-1.5 py-0.5">
+                      <Crown className="h-2.5 w-2.5 mr-1" />
+                      Premium
+                    </Badge>
+                  )}
+                </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span className="text-xs text-muted-foreground">
@@ -134,9 +143,17 @@ export default function Chat() {
                 </AvatarFallback>
               </Avatar>
 
-              <h3 className="text-xl font-bold text-foreground mb-2">
-                {targetUser?.firstName} {targetUser?.lastName}
-              </h3>
+              <div className="flex flex-col items-center">
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  {targetUser?.firstName} {targetUser?.lastName}
+                </h3>
+                {targetUser?.isPremium && (
+                  <Badge className="bg-accent/90 text-white border-accent/30 mb-2">
+                    <Crown className="h-3 w-3 mr-1" />
+                    Premium Member
+                  </Badge>
+                )}
+              </div>
 
               {targetUser?.about && (
                 <p className="text-sm text-muted-foreground max-w-xs mx-auto mb-4">

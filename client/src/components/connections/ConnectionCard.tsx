@@ -4,11 +4,20 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MessageCircle, User, Calendar, Code } from "lucide-react";
+import { MessageCircle, User, Calendar, Code, Crown } from "lucide-react";
 
 const ConnectionCard = ({ connection }: { connection: UserInfo }) => {
-  const { firstName, lastName, age, gender, about, skills, imageUrl, _id } =
-    connection;
+  const {
+    firstName,
+    lastName,
+    age,
+    gender,
+    about,
+    skills,
+    imageUrl,
+    _id,
+    isPremium,
+  } = connection;
 
   return (
     <Card className="w-full h-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border bg-card">
@@ -42,7 +51,13 @@ const ConnectionCard = ({ connection }: { connection: UserInfo }) => {
         </div>
 
         {/* Age and Gender */}
-        <div className="flex justify-center gap-2 mb-4">
+        <div className="flex justify-center gap-2 mb-4 flex-wrap">
+          {isPremium && (
+            <Badge className="bg-accent/90 text-white border-accent/30 hover:bg-accent">
+              <Crown className="h-3 w-3 mr-1" />
+              Premium
+            </Badge>
+          )}
           {age && (
             <Badge
               variant="secondary"
