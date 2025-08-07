@@ -139,7 +139,7 @@ const Header = () => {
                     <DropdownMenuItem asChild>
                       <Link
                         to="/profile"
-                        className="w-full cursor-pointer flex items-center space-x-2"
+                        className="w-full cursor-pointer flex items-center space-x-2 hover:bg-secondary/50 focus:bg-secondary/50"
                       >
                         <User className="h-4 w-4" />
                         <span>Profile</span>
@@ -147,7 +147,7 @@ const Header = () => {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      className="cursor-pointer text-destructive focus:text-destructive flex items-center space-x-2"
+                      className="cursor-pointer text-destructive focus:text-destructive hover:bg-destructive/10 focus:bg-destructive/10 flex items-center space-x-2"
                       onClick={() => setIsAlertOpen(true)}
                     >
                       <LogOut className="h-4 w-4" />
@@ -186,7 +186,7 @@ const Header = () => {
                     <DropdownMenuItem asChild>
                       <Link
                         to="/"
-                        className="w-full cursor-pointer flex items-center space-x-2"
+                        className="w-full cursor-pointer flex items-center space-x-2 hover:bg-secondary/50 focus:bg-secondary/50"
                       >
                         <Heart className="h-4 w-4" />
                         <span>Discover</span>
@@ -195,7 +195,7 @@ const Header = () => {
                     <DropdownMenuItem asChild>
                       <Link
                         to="/connections"
-                        className="w-full cursor-pointer flex items-center space-x-2"
+                        className="w-full cursor-pointer flex items-center space-x-2 hover:bg-secondary/50 focus:bg-secondary/50"
                       >
                         <Users className="h-4 w-4" />
                         <span>Connections</span>
@@ -204,7 +204,7 @@ const Header = () => {
                     <DropdownMenuItem asChild>
                       <Link
                         to="/requests"
-                        className="w-full cursor-pointer flex items-center space-x-2"
+                        className="w-full cursor-pointer flex items-center space-x-2 hover:bg-secondary/50 focus:bg-secondary/50"
                       >
                         <MessageSquare className="h-4 w-4" />
                         <span>Requests</span>
@@ -213,7 +213,7 @@ const Header = () => {
                     <DropdownMenuItem asChild>
                       <Link
                         to="/premium"
-                        className="w-full cursor-pointer flex items-center space-x-2 text-accent"
+                        className="w-full cursor-pointer flex items-center space-x-2 text-accent hover:bg-accent/10 focus:bg-accent/10"
                       >
                         <Crown className="h-4 w-4" />
                         <span>Premium</span>
@@ -228,14 +228,14 @@ const Header = () => {
                     <DropdownMenuItem asChild>
                       <Link
                         to="/profile"
-                        className="w-full cursor-pointer flex items-center space-x-2"
+                        className="w-full cursor-pointer flex items-center space-x-2 hover:bg-secondary/50 focus:bg-secondary/50"
                       >
                         <User className="h-4 w-4" />
                         <span>Profile</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className="cursor-pointer text-destructive focus:text-destructive flex items-center space-x-2"
+                      className="cursor-pointer text-destructive focus:text-destructive hover:bg-destructive/10 focus:bg-destructive/10 flex items-center space-x-2"
                       onClick={() => setIsAlertOpen(true)}
                     >
                       <LogOut className="h-4 w-4" />
