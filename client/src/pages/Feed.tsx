@@ -20,7 +20,7 @@ const Feed = () => {
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
-                Discover Developers
+                Discover
               </h1>
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
