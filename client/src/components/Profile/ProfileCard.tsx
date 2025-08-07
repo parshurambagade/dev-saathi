@@ -23,7 +23,7 @@ const ProfileCard = ({
   const { firstName, lastName, age, gender, about, skills, imageUrl } = user;
 
   return (
-    <Card className="w-full max-w-md py-0 mx-auto overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-border bg-card backdrop-blur-lg">
+    <Card className="w-full max-w-sm py-0 mx-auto overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-border bg-card backdrop-blur-lg">
       <CardHeader className="p-0 relative">
         <div className="relative overflow-hidden group">
           {imageUrl ? (
@@ -33,7 +33,7 @@ const ProfileCard = ({
               className="w-full h-80 object-cover transition-all duration-700 group-hover:scale-105"
             />
           ) : (
-            <div className="w-full h-96 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+            <div className="w-full h-96 bg-primary/20 flex items-center justify-center">
               <User className="h-24 w-24 text-muted-foreground" />
             </div>
           )}
@@ -83,7 +83,7 @@ const ProfileCard = ({
         {/* About Section */}
         <div className="space-y-3">
           <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <div className="w-1 h-4 bg-gradient-to-b from-primary to-accent rounded-full"></div>
+            <div className="w-1 h-4 bg-primary rounded-full"></div>
             About
           </h4>
           {about ? (
@@ -101,7 +101,7 @@ const ProfileCard = ({
         {/* Skills Section */}
         <div className="space-y-3">
           <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <div className="w-1 h-4 bg-gradient-to-b from-accent to-primary rounded-full"></div>
+            <div className="w-1 h-4 bg-accent rounded-full"></div>
             Skills
           </h4>
           {skills &&
@@ -163,7 +163,7 @@ const ProfileCard = ({
         </Button>
         <Button
           disabled={!handleSendRequest}
-          className="cursor-pointer flex-1 h-14 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl group"
+          className="cursor-pointer flex-1 h-14 rounded-xl bg-primary hover:bg-primary/90 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl group"
           onClick={() => handleSendRequest && handleSendRequest(user._id || "")}
         >
           <Heart className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform duration-200" />

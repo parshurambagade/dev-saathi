@@ -73,7 +73,7 @@ export default function Chat() {
                   src={targetUser?.imageUrl}
                   alt={`${targetUser?.firstName}`}
                 />
-                <AvatarFallback className="bg-gradient-to-r from-primary/20 to-accent/20 text-sm font-medium">
+                <AvatarFallback className="bg-primary/20 text-primary text-sm font-medium">
                   {targetUser?.firstName?.[0]}
                   {targetUser?.lastName?.[0]}
                 </AvatarFallback>
@@ -128,7 +128,7 @@ export default function Chat() {
                   src={targetUser?.imageUrl}
                   alt={targetUser?.firstName}
                 />
-                <AvatarFallback className="bg-gradient-to-r from-primary/20 to-accent/20 text-lg font-semibold">
+                <AvatarFallback className="bg-primary/20 text-primary text-lg font-semibold">
                   {targetUser?.firstName?.[0]}
                   {targetUser?.lastName?.[0]}
                 </AvatarFallback>

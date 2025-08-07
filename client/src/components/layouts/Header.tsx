@@ -44,16 +44,18 @@ const Header = () => {
     setIsAlertOpen(false);
   };
   return (
-    <header className="w-full border-b border-border bg-card">
+    <header className="w-full border-b border-border/50 bg-gradient-to-r from-card/95 to-card backdrop-blur-sm">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className="flex items-center">
           <Link
             to="/"
-            className="group flex items-center space-x-2 transition-all duration-200"
+            className="group flex items-center space-x-2 transition-all duration-200 hover:scale-105"
           >
             <div className="flex items-center">
-              <Sparkles className="h-6 w-6 text-primary mr-2" />
+              <div className="h-8 w-8 rounded-lg bg-accent flex items-center justify-center mr-2 shadow-lg">
+                <Sparkles className="h-4 w-4 text-white" />
+              </div>
               <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent group-hover:from-primary/80 group-hover:to-accent/80 transition-all duration-200">
                 DevSaathi
               </span>
@@ -114,11 +116,11 @@ const Header = () => {
                           alt={user?.firstName || "User Avatar"}
                           className="object-cover"
                         />
-                        <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground text-sm font-semibold">
+                        <AvatarFallback className="bg-primary text-primary-foreground text-sm font-semibold">
                           {user?.firstName?.charAt(0)?.toUpperCase() || "U"}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="absolute -bottom-1 -right-1 h-3 w-3 bg-green-500 border-2 border-card rounded-full"></div>
+                      <div className="absolute -bottom-[2px] -right-[2px] h-3 w-3 bg-green-500 border-2 border-card rounded-full"></div>
                     </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent

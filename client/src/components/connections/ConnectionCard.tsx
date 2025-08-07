@@ -28,7 +28,7 @@ const ConnectionCard = ({ connection }: { connection: UserInfo }) => {
               </AvatarFallback>
             </Avatar>
           ) : (
-            <div className="h-20 w-20 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border-2 border-border">
+            <div className="h-20 w-20 rounded-full bg-primary/20 flex items-center justify-center border-2 border-border">
               <User className="h-8 w-8 text-muted-foreground" />
             </div>
           )}
@@ -126,7 +126,10 @@ const ConnectionCard = ({ connection }: { connection: UserInfo }) => {
         </div>
 
         {/* Chat Button */}
-        <Button asChild className="w-full mt-auto">
+        <Button
+          asChild
+          className="w-full mt-auto bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+        >
           <Link to={`/chat/${_id}`}>
             <MessageCircle className="h-4 w-4 mr-2" />
             Start Chat

@@ -329,7 +329,7 @@ export default function EditProfileForm({
       <CardFooter className="flex gap-3 pt-2">
         <Button
           type="submit"
-          className="flex-1 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-medium transition-all duration-300"
+          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300"
           onClick={() => onUpdate(user)}
         >
           <Save className="h-4 w-4 mr-2" />

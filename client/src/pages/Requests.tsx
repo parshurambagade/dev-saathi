@@ -22,19 +22,21 @@ const Requests = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary/5 via-background to-accent/5 pt-8 pb-16">
+      <div className="bg-gradient-to-br from-primary/10 via-background to-accent/5 pt-8 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-6">
             <BackButton />
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <Inbox className="h-8 w-8 text-primary mr-3" />
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center mr-4 shadow-lg">
+                <Inbox className="h-6 w-6 text-white" />
+              </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
                 Connection Requests
               </h1>
             </div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Review and manage incoming connection requests from fellow
               developers
             </p>
@@ -95,37 +97,33 @@ const Requests = () => {
 
                   {/* How to get more requests */}
                   <div className="grid gap-4 w-full max-w-lg mb-8">
-                    <Card className="bg-gradient-to-r from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 border-primary/20 dark:border-primary/30">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-primary to-primary/80 flex items-center justify-center flex-shrink-0">
-                          <Heart className="h-5 w-5 text-primary-foreground" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-foreground text-sm">
-                            Stay Active
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            Browse and like profiles to increase visibility
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 flex items-center gap-4">
+                      <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                        <Heart className="h-5 w-5 text-primary-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-foreground text-sm">
+                          Stay Active
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Browse and like profiles to increase visibility
+                        </p>
+                      </div>
+                    </div>
 
-                    <Card className="bg-gradient-to-r from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 border-accent/20 dark:border-accent/30">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-accent to-accent/80 flex items-center justify-center flex-shrink-0">
-                          <UserCheck className="h-5 w-5 text-accent-foreground" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-foreground text-sm">
-                            Complete Profile
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            A complete profile attracts more requests
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="bg-accent/5 border border-accent/20 rounded-lg p-4 flex items-center gap-4">
+                      <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                        <UserCheck className="h-5 w-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-foreground text-sm">
+                          Complete Profile
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          A complete profile attracts more requests
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   {/* CTA Buttons */}
@@ -137,7 +135,11 @@ const Requests = () => {
                         <ArrowRight className="h-4 w-4 ml-2" />
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" className="flex-1">
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="flex-1 hover:bg-secondary/10"
+                    >
                       <Link to="/profile">
                         <Users className="h-4 w-4 mr-2" />
                         Edit Profile
@@ -154,7 +156,7 @@ const Requests = () => {
             <div className="w-full max-w-6xl mx-auto">
               {/* Requests Count */}
               <div className="mb-6 flex justify-center">
-                <Card className="bg-gradient-to-r from-primary/5 to-accent/5 border-primary/20 w-fit">
+                <Card className="bg-primary/5 border-primary/20 w-fit">
                   <CardContent className="px-6 py-3">
                     <p className="text-sm text-muted-foreground">
                       You have{" "}

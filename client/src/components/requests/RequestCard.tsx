@@ -36,7 +36,7 @@ const RequestCard = ({
               </AvatarFallback>
             </Avatar>
           ) : (
-            <div className="h-20 w-20 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border-2 border-border">
+            <div className="h-20 w-20 rounded-full bg-primary/20 flex items-center justify-center border-2 border-border">
               <User className="h-8 w-8 text-muted-foreground" />
             </div>
           )}

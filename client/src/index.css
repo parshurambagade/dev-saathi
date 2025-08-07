@@ -44,38 +44,38 @@
 :root {
   --radius: 0.625rem;
 
-  /* DevSaathi Dark Theme Colors */
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --card: #1e293b;
-  --card-foreground: #f8fafc;
-  --popover: #1e293b;
-  --popover-foreground: #f8fafc;
-  --primary: #6366f1;
+  /* DevSaathi Modern Professional Theme */
+  --background: #0a0f1c;
+  --foreground: #f1f5f9;
+  --card: #1a1f2e;
+  --card-foreground: #f1f5f9;
+  --popover: #1a1f2e;
+  --popover-foreground: #f1f5f9;
+  --primary: #3b82f6;
   --primary-foreground: #ffffff;
-  --secondary: #334155;
-  --secondary-foreground: #f8fafc;
-  --muted: #334155;
-  --muted-foreground: #cbd5e1;
-  --accent: #f59e0b;
+  --secondary: #2a3441;
+  --secondary-foreground: #e2e8f0;
+  --muted: #2a3441;
+  --muted-foreground: #94a3b8;
+  --accent: #f97316;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
-  --border: #475569;
-  --input: #334155;
-  --ring: #6366f1;
-  --chart-1: #6366f1;
-  --chart-2: #a5b4fc;
-  --chart-3: #f59e0b;
+  --border: #334155;
+  --input: #2a3441;
+  --ring: #3b82f6;
+  --chart-1: #3b82f6;
+  --chart-2: #60a5fa;
+  --chart-3: #f97316;
   --chart-4: #10b981;
   --chart-5: #ef4444;
-  --sidebar: #1e293b;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #6366f1;
+  --sidebar: #1a1f2e;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #3b82f6;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #334155;
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: #475569;
-  --sidebar-ring: #6366f1;
+  --sidebar-accent: #2a3441;
+  --sidebar-accent-foreground: #e2e8f0;
+  --sidebar-border: #334155;
+  --sidebar-ring: #3b82f6;
 }
 
 @layer base {

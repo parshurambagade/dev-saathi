@@ -20,19 +20,21 @@ const Connections = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary/5 via-background to-accent/5 pt-8 pb-16">
+      <div className="bg-gradient-to-br from-primary/10 via-background to-accent/5 pt-8 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-6">
             <BackButton />
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <Users className="h-8 w-8 text-primary mr-3" />
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center mr-4 shadow-lg">
+                <Users className="h-6 w-6 text-white" />
+              </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
                 Your Connections
               </h1>
             </div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Connect and collaborate with talented developers in your network
             </p>
           </div>
@@ -91,41 +93,40 @@ const Connections = () => {
 
                   {/* How it works */}
                   <div className="grid gap-4 w-full max-w-lg mb-8">
-                    <Card className="bg-gradient-to-r from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 border-primary/20 dark:border-primary/30">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-primary to-primary/80 flex items-center justify-center flex-shrink-0">
-                          <Heart className="h-5 w-5 text-primary-foreground" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-foreground text-sm">
-                            Send Likes
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            Browse feed and like profiles you're interested in
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 flex items-center gap-4">
+                      <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                        <Heart className="h-5 w-5 text-primary-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-foreground text-sm">
+                          Send Likes
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Browse feed and like profiles you're interested in
+                        </p>
+                      </div>
+                    </div>
 
-                    <Card className="bg-gradient-to-r from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 border-accent/20 dark:border-accent/30">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-accent to-accent/80 flex items-center justify-center flex-shrink-0">
-                          <MessageCircle className="h-5 w-5 text-accent-foreground" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-foreground text-sm">
-                            Get Matched
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            When they like you back, you become connections
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="bg-accent/5 border border-accent/20 rounded-lg p-4 flex items-center gap-4">
+                      <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                        <MessageCircle className="h-5 w-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-foreground text-sm">
+                          Get Matched
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          When they like you back, you become connections
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   {/* CTA Button */}
-                  <Button asChild className="w-full max-w-sm">
+                  <Button
+                    asChild
+                    className="w-full max-w-sm bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
                     <Link to="/">
                       <Sparkles className="h-4 w-4 mr-2" />
                       Start Discovering Developers
