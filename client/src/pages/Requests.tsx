@@ -22,21 +22,21 @@ const Requests = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary/10 via-background to-accent/5 pt-8 pb-16">
+      <div className="bg-gradient-to-br from-primary/10 via-background to-accent/5 pt-6 sm:pt-8 pb-12 sm:pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <BackButton />
           </div>
           <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center mr-4 shadow-lg">
-                <Inbox className="h-6 w-6 text-white" />
+            <div className="flex items-center justify-center mb-3 sm:mb-4">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
+                <Inbox className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">
                 Connection Requests
               </h1>
             </div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
               Review and manage incoming connection requests from fellow
               developers
             </p>
