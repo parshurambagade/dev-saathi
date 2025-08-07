@@ -171,7 +171,7 @@ const Requests = () => {
               </div>
 
               {/* Requests Grid */}
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex gap-4  justify-center items-center flex-wrap">
                 {requests.map((request) => (
                   <RequestCard
                     key={request._id}

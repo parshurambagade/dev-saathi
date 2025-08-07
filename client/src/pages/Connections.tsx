@@ -142,7 +142,7 @@ const Connections = () => {
           {!loading && !error && connections.length > 0 && (
             <div className="w-full max-w-6xl mx-auto">
               {/* Connections Grid */}
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex gap-4  justify-center items-center flex-wrap">
                 {connections.map((connection) => (
                   <ConnectionCard
                     key={connection._id}
