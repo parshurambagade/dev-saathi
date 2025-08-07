@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const useRegistration = () => {
-  const [firstName, setFirstName] = useState("Parshuram");
-  const [lastName, setLastName] = useState("Bagade");
-  const [email, setEmail] = useState("parshuram@gmail.com");
-  const [password, setPassword] = useState("Pass@123");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 

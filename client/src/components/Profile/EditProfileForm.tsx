@@ -35,6 +35,7 @@ export default function EditProfileForm({
   onImageSelect,
   selectedImage,
   imagePreview,
+  updating = false,
 }: {
   user: UserInfo | null;
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo | null>>;
@@ -43,6 +44,7 @@ export default function EditProfileForm({
   onImageSelect: (file: File) => void;
   selectedImage: File | null;
   imagePreview: string | null;
+  updating?: boolean;
 }) {
   if (!user) return null;
 
@@ -223,7 +225,7 @@ export default function EditProfileForm({
                     JPG, PNG, GIF up to 5MB
                   </p>
                   {selectedImage && (
-                    <div className="flex items-center justify-center gap-1 mt-2 text-xs text-primary">
+                    <div className="flex items-center justify-start gap-1 mt-2 text-xs text-primary">
                       <CheckCircle className="h-3 w-3" />
                       <span>{selectedImage.name}</span>
                     </div>
@@ -338,15 +340,26 @@ export default function EditProfileForm({
       <CardFooter className="flex gap-3 pt-2">
         <Button
           type="submit"
-          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300 cursor-pointer"
+          disabled={updating}
+          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={() => onUpdate(user)}
         >
-          <Save className="h-4 w-4 mr-2" />
-          Save Changes
+          {updating ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
+              Updating...
+            </>
+          ) : (
+            <>
+              <Save className="h-4 w-4 mr-2" />
+              Save Changes
+            </>
+          )}
         </Button>
         <Button
           variant="outline"
-          className="flex-1 border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300 cursor-pointer"
+          disabled={updating}
+          className="flex-1 border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={onCancel}
         >
           <X className="h-4 w-4 mr-2" />
