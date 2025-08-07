@@ -3,6 +3,8 @@
 import { AlertCircle } from "lucide-react";
 import useRegistration from "@/hooks/useRegistration";
 import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export function RegistrationForm() {
   const {
@@ -42,15 +44,15 @@ export function RegistrationForm() {
             >
               First Name
             </label>
-            <input
+            <Input
               id="firstName"
               name="firstName"
               type="text"
+              className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
               required
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="John"
-              className="w-full bg-input text-foreground px-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition duration-200 placeholder-muted-foreground"
             />
           </div>
 
@@ -62,15 +64,15 @@ export function RegistrationForm() {
             >
               Last Name
             </label>
-            <input
+            <Input
               id="lastName"
               name="lastName"
               type="text"
               required
+              className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Doe"
-              className="w-full bg-input text-foreground px-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition duration-200 placeholder-muted-foreground"
             />
           </div>
         </div>
@@ -83,15 +85,15 @@ export function RegistrationForm() {
           >
             Email Address
           </label>
-          <input
+          <Input
             id="email"
             name="email"
             type="email"
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="john.doe@example.com"
-            className="w-full bg-input text-foreground px-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition duration-200 placeholder-muted-foreground"
           />
         </div>
 
@@ -103,15 +105,15 @@ export function RegistrationForm() {
           >
             Password
           </label>
-          <input
+          <Input
             id="password"
             name="password"
             type="password"
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Create a strong password"
-            className="w-full bg-input text-foreground px-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition duration-200 placeholder-muted-foreground"
           />
           <p className="text-xs text-muted-foreground mt-1">
             Use at least 8 characters with a mix of letters, numbers & symbols
@@ -127,20 +129,20 @@ export function RegistrationForm() {
         )}
 
         {/* Submit Button */}
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground px-6 py-3 rounded-lg font-medium transition duration-200 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-card cursor-pointer"
+          className="w-full cursor-pointer"
         >
           {isLoading ? (
             <div className="flex items-center justify-center space-x-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
               <span>Creating Account...</span>
             </div>
           ) : (
             "Create Account"
           )}
-        </button>
+        </Button>
       </form>
 
       {/* Login Link */}

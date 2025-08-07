@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const useLogin = () => {
-  const [email, setEmail] = useState("parshuram@gmail.com");
+  const [email, setEmail] = useState("abhi@gmail.com");
   const [password, setPassword] = useState("Pass@123");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);

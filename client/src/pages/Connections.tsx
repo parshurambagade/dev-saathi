@@ -125,9 +125,9 @@ const Connections = () => {
                   {/* CTA Button */}
                   <Button
                     asChild
-                    className="w-full max-w-sm bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full max-w-sm bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
                   >
-                    <Link to="/">
+                    <Link to="/" className="cursor-pointer">
                       <Sparkles className="h-4 w-4 mr-2" />
                       Start Discovering Developers
                       <ArrowRight className="h-4 w-4 ml-2" />
@@ -142,7 +142,7 @@ const Connections = () => {
           {!loading && !error && connections.length > 0 && (
             <div className="w-full max-w-6xl mx-auto">
               {/* Connections Grid */}
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex gap-4  justify-center items-center flex-wrap">
                 {connections.map((connection) => (
                   <ConnectionCard
                     key={connection._id}

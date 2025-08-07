@@ -15,6 +15,7 @@ const Profile = () => {
     handleImageSelect,
     selectedImage,
     imagePreview,
+    updating,
   } = useProfile();
 
   if (!userInfo) {
@@ -95,6 +96,7 @@ const Profile = () => {
                 onImageSelect={handleImageSelect}
                 selectedImage={selectedImage}
                 imagePreview={imagePreview}
+                updating={updating}
               />
             </div>
           </div>

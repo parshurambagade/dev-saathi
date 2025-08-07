@@ -19,7 +19,7 @@ const BackButton = ({
     <Button
       variant="ghost"
       onClick={() => navigate(to)}
-      className={`hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-all duration-300 group ${className}`}
+      className={`hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-all duration-300 group cursor-pointer ${className}`}
     >
       <ArrowLeft className="w-4 h-4 mr-0 group-hover:translate-x-[-2px] transition-transform duration-300 " />
       <span>{label}</span>

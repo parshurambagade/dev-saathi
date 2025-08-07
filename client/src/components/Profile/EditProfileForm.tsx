@@ -10,6 +10,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import type { UserInfo } from "@/store/slices/userSlice";
 import {
   Image as ImageIcon,
@@ -28,6 +35,7 @@ export default function EditProfileForm({
   onImageSelect,
   selectedImage,
   imagePreview,
+  updating = false,
 }: {
   user: UserInfo | null;
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo | null>>;
@@ -36,6 +44,7 @@ export default function EditProfileForm({
   onImageSelect: (file: File) => void;
   selectedImage: File | null;
   imagePreview: string | null;
+  updating?: boolean;
 }) {
   if (!user) return null;
 
@@ -133,21 +142,23 @@ export default function EditProfileForm({
                 >
                   Gender
                 </Label>
-                <select
-                  id="gender"
-                  defaultValue={gender}
-                  onChange={(e) =>
+                <Select
+                  defaultValue={gender || undefined}
+                  onValueChange={(value) =>
                     setUserInfo((prev) =>
-                      prev ? { ...prev, gender: e.target.value } : prev
+                      prev ? { ...prev, gender: value } : prev
                     )
                   }
-                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
+                  <SelectTrigger className="w-full bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary">
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
@@ -214,7 +225,7 @@ export default function EditProfileForm({
                     JPG, PNG, GIF up to 5MB
                   </p>
                   {selectedImage && (
-                    <div className="flex items-center justify-center gap-1 mt-2 text-xs text-primary">
+                    <div className="flex items-center justify-start gap-1 mt-2 text-xs text-primary">
                       <CheckCircle className="h-3 w-3" />
                       <span>{selectedImage.name}</span>
                     </div>
@@ -329,15 +340,26 @@ export default function EditProfileForm({
       <CardFooter className="flex gap-3 pt-2">
         <Button
           type="submit"
-          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300"
+          disabled={updating}
+          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={() => onUpdate(user)}
         >
-          <Save className="h-4 w-4 mr-2" />
-          Save Changes
+          {updating ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
+              Updating...
+            </>
+          ) : (
+            <>
+              <Save className="h-4 w-4 mr-2" />
+              Save Changes
+            </>
+          )}
         </Button>
         <Button
           variant="outline"
-          className="flex-1 border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300"
+          disabled={updating}
+          className="flex-1 border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={onCancel}
         >
           <X className="h-4 w-4 mr-2" />

@@ -12,7 +12,7 @@ const useProfile = () => {
   const [userInfo, setUserInfo] = React.useState<UserInfo | null>(user);
   const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
-
+  const [updating, setUpdating] = React.useState(false);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -35,6 +35,13 @@ const useProfile = () => {
 
   const handleUpdateProfile = async (newUserInfo: UserInfo | null) => {
     try {
+      if (updating) {
+        toast.error("Profile update in progress. Please wait.");
+        return;
+      }
+
+      setUpdating(true);
+
       const processedSkills = newUserInfo?.skills
         ? newUserInfo.skills
             .map((s) => s.trim()) // Trim each skill
@@ -84,7 +91,10 @@ const useProfile = () => {
       toast.error("Failed to update profile", {
         description: "Please check your information and try again.",
       });
+
       throw error;
+    } finally {
+      setUpdating(false);
     }
   };
 
@@ -105,6 +115,7 @@ const useProfile = () => {
     handleImageSelect,
     selectedImage,
     imagePreview,
+    updating,
   };
 };
 

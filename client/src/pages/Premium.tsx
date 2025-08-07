@@ -184,7 +184,7 @@ const Premium = () => {
                   <Button
                     onClick={() => handlePurchase(membershipPlan.type)}
                     disabled={isLoading}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2.5 sm:py-3 text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl group"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2.5 sm:py-3 text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl group cursor-pointer"
                     size="lg"
                   >
                     {isLoading && selectedPlan === membershipPlan.type ? (
@@ -311,7 +311,7 @@ const Premium = () => {
 
             <Button
               onClick={() => (window.location.href = "/profile")}
-              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold py-2.5 sm:py-3 px-6 sm:px-8 text-sm sm:text-base shadow-lg hover:shadow-xl group"
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold py-2.5 sm:py-3 px-6 sm:px-8 text-sm sm:text-base shadow-lg hover:shadow-xl group cursor-pointer"
               size="lg"
             >
               <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2 group-hover:scale-110 transition-transform duration-300" />

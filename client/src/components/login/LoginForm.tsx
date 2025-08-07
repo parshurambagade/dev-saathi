@@ -3,6 +3,8 @@
 import { AlertCircle } from "lucide-react";
 import useLogin from "@/hooks/useLogin";
 import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export function LoginForm() {
   const {
@@ -36,15 +38,15 @@ export function LoginForm() {
           >
             Email Address
           </label>
-          <input
+          <Input
             id="email"
             name="email"
             type="email"
             required
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="w-full bg-input text-foreground px-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition duration-200 placeholder-muted-foreground"
           />
         </div>
 
@@ -56,15 +58,15 @@ export function LoginForm() {
           >
             Password
           </label>
-          <input
+          <Input
             id="password"
             name="password"
             type="password"
             required
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
-            className="w-full bg-input text-foreground px-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition duration-200 placeholder-muted-foreground"
           />
         </div>
 
@@ -77,10 +79,10 @@ export function LoginForm() {
         )}
 
         {/* Submit Button */}
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground px-6 py-3 rounded-lg font-medium transition duration-200 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-card cursor-pointer"
+          className="w-full cursor-pointer"
         >
           {isLoading ? (
             <div className="flex items-center justify-center space-x-2">
@@ -90,7 +92,7 @@ export function LoginForm() {
           ) : (
             "Sign In"
           )}
-        </button>
+        </Button>
       </form>
 
       {/* Register Link */}
