@@ -143,9 +143,9 @@ const ConnectionCard = ({ connection }: { connection: UserInfo }) => {
         {/* Chat Button */}
         <Button
           asChild
-          className="w-full mt-auto bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+          className="w-full mt-auto bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
         >
-          <Link to={`/chat/${_id}`}>
+          <Link to={`/chat/${_id}`} className="cursor-pointer">
             <MessageCircle className="h-4 w-4 mr-2" />
             Start Chat
           </Link>

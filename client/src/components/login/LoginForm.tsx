@@ -43,7 +43,7 @@ export function LoginForm() {
             name="email"
             type="email"
             required
-             className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
@@ -63,7 +63,7 @@ export function LoginForm() {
             name="password"
             type="password"
             required
-             className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
@@ -79,7 +79,11 @@ export function LoginForm() {
         )}
 
         {/* Submit Button */}
-        <Button type="submit" disabled={isLoading} className="w-full">
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className="w-full cursor-pointer"
+        >
           {isLoading ? (
             <div className="flex items-center justify-center space-x-2">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>

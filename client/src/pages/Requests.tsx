@@ -128,8 +128,8 @@ const Requests = () => {
 
                   {/* CTA Buttons */}
                   <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-                    <Button asChild className="flex-1">
-                      <Link to="/">
+                    <Button asChild className="flex-1 cursor-pointer">
+                      <Link to="/" className="cursor-pointer">
                         <Sparkles className="h-4 w-4 mr-2" />
                         Browse Feed
                         <ArrowRight className="h-4 w-4 ml-2" />
@@ -138,9 +138,9 @@ const Requests = () => {
                     <Button
                       asChild
                       variant="outline"
-                      className="flex-1 hover:bg-secondary/10"
+                      className="flex-1 hover:bg-secondary/10 cursor-pointer"
                     >
-                      <Link to="/profile">
+                      <Link to="/profile" className="cursor-pointer">
                         <Users className="h-4 w-4 mr-2" />
                         Edit Profile
                       </Link>
@@ -156,8 +156,8 @@ const Requests = () => {
             <div className="w-full max-w-6xl mx-auto">
               {/* Requests Count */}
               <div className="mb-6 flex justify-center">
-                <Card className="bg-primary/5 border-primary/20 w-fit">
-                  <CardContent className="px-6 py-3">
+                <Card className="bg-primary/5 border-primary/20 w-fit py-0">
+                  <CardContent className="px-6 py-1.5">
                     <p className="text-sm text-muted-foreground">
                       You have{" "}
                       <span className="font-semibold text-primary">

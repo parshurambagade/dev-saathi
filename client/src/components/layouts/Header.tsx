@@ -50,7 +50,7 @@ const Header = () => {
         <div className="flex items-center">
           <Link
             to="/"
-            className="group flex items-center space-x-2 transition-all duration-200 hover:scale-105"
+            className="group flex items-center space-x-2 transition-all duration-200 hover:scale-105 cursor-pointer"
           >
             <div className="flex items-center">
               <div className="h-8 w-8 rounded-lg bg-accent flex items-center justify-center mr-2 shadow-lg">

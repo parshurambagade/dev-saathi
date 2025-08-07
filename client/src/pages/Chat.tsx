@@ -57,7 +57,7 @@ export default function Chat() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="sm:hidden p-2 h-auto"
+                className="sm:hidden p-2 h-auto cursor-pointer"
                 onClick={() => window.history.back()}
               >
                 <ArrowLeft className="h-5 w-5" />
@@ -106,18 +106,22 @@ export default function Chat() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="hidden sm:flex h-9 w-9 p-0"
+                className="hidden sm:flex h-9 w-9 p-0 cursor-pointer"
               >
                 <Phone className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                className="hidden sm:flex h-9 w-9 p-0"
+                className="hidden sm:flex h-9 w-9 p-0 cursor-pointer"
               >
                 <Video className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-9 w-9 p-0">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-9 w-9 p-0 cursor-pointer"
+              >
                 <MoreVertical className="h-4 w-4" />
               </Button>
             </div>
@@ -275,7 +279,7 @@ export default function Chat() {
               <Button
                 onClick={handleSend}
                 disabled={!input.trim()}
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90 disabled:opacity-50"
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90 disabled:opacity-50 cursor-pointer"
               >
                 <Send className="w-4 h-4" />
               </Button>

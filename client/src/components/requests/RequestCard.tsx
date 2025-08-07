@@ -150,7 +150,7 @@ const RequestCard = ({
         {/* Action Buttons */}
         <div className="space-y-3 mt-auto">
           <Button
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-300 group"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer"
             onClick={() => onAccept(request._id)}
           >
             <Check className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
@@ -158,7 +158,7 @@ const RequestCard = ({
           </Button>
           <Button
             variant="outline"
-            className="w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-md hover:shadow-lg transition-all duration-300 group"
+            className="w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer"
             onClick={() => onReject(request._id)}
           >
             <X className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-300" />

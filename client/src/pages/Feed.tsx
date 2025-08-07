@@ -99,9 +99,9 @@ const Feed = () => {
                     </p>
                     <Button
                       asChild
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
                     >
-                      <Link to="/premium">
+                      <Link to="/premium" className="cursor-pointer">
                         <Crown className="h-4 w-4 mr-2" />
                         Upgrade to Premium
                       </Link>

@@ -48,7 +48,7 @@ export function RegistrationForm() {
               id="firstName"
               name="firstName"
               type="text"
-               className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
+              className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
               required
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -69,7 +69,7 @@ export function RegistrationForm() {
               name="lastName"
               type="text"
               required
-               className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
+              className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Doe"
@@ -89,7 +89,7 @@ export function RegistrationForm() {
             id="email"
             name="email"
             type="email"
-             className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -109,7 +109,7 @@ export function RegistrationForm() {
             id="password"
             name="password"
             type="password"
-             className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
+            className="bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -129,7 +129,11 @@ export function RegistrationForm() {
         )}
 
         {/* Submit Button */}
-        <Button type="submit" disabled={isLoading} className="w-full">
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className="w-full cursor-pointer"
+        >
           {isLoading ? (
             <div className="flex items-center justify-center space-x-2">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>

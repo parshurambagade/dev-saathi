@@ -148,7 +148,7 @@ export default function EditProfileForm({
                     )
                   }
                 >
-                  <SelectTrigger  className="w-full bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary">
+                  <SelectTrigger className="w-full bg-background border-border focus:border-primary focus:ring-1 focus:ring-primary">
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
                   <SelectContent>
@@ -338,7 +338,7 @@ export default function EditProfileForm({
       <CardFooter className="flex gap-3 pt-2">
         <Button
           type="submit"
-          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300"
+          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-300 cursor-pointer"
           onClick={() => onUpdate(user)}
         >
           <Save className="h-4 w-4 mr-2" />
@@ -346,7 +346,7 @@ export default function EditProfileForm({
         </Button>
         <Button
           variant="outline"
-          className="flex-1 border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300"
+          className="flex-1 border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300 cursor-pointer"
           onClick={onCancel}
         >
           <X className="h-4 w-4 mr-2" />
