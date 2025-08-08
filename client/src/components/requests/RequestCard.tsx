@@ -27,7 +27,7 @@ const RequestCard = ({
   } = request.sender as UserInfo;
 
   return (
-    <Card className="w-full max-w-sm h-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border bg-card">
+    <Card className="w-full max-w-sm h-auto overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border bg-card">
       <CardContent className="p-6 text-center h-full flex flex-col">
         {/* Profile Picture */}
         <div className="flex justify-center mb-4">

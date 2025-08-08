@@ -53,7 +53,7 @@ const Header = () => {
             className="group flex items-center space-x-2 transition-all duration-200 hover:scale-105 cursor-pointer"
           >
             <div className="flex items-center">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center mr-2 shadow-lg">
+              <div className="h-8 w-8 rounded-lg bg-accent flex items-center justify-center mr-2 shadow-lg">
                 <CodeXml className="h-4 w-4 text-white" />
               </div>
               <span className="text-xl sm:text-2xl font-bold group-hover:from-primary/80 group-hover:to-accent/80 transition-all duration-200 text-primary">
