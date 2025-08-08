@@ -158,7 +158,7 @@ const RequestCard = ({
           </Button>
           <Button
             variant="outline"
-            className="w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer"
+            className="border bg- border-red-500 w-full text-red-500 hover:bg-red-500 hover:text-white shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer"
             onClick={() => onReject(request._id)}
           >
             <X className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-300" />

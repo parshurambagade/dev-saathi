@@ -117,8 +117,7 @@ const ProfileCard = ({
             </p>
           ) : (
             <p className="text-muted-foreground/70 leading-relaxed text-sm italic">
-              This developer hasn't shared their story yet. Sometimes the best
-              connections come from discovering someone new!
+              This developer hasn't shared their story yet.
             </p>
           )}
         </div>
